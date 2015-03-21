@@ -16,7 +16,7 @@ async function createDir(dir) {
 export default async function(projectName) {
   try {
     await dirExists(projectName);
-    error(`Project ${projectName} can not be created as director ${projectName} already exists`);
+    error(`Project ${projectName} can not be created as directory ${projectName} already exists`);
   } catch (e) {
     if (e.code === 'ENOENT') {
       await createDir(projectName);

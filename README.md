@@ -1,3 +1,3 @@
 # rjanko
 
-Do not use ever it. Close this page straight away. Thanks.
+Do not use it. Evet. Close this page straight away. Thanks.
