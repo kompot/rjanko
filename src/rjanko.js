@@ -11,7 +11,7 @@ program
     .description('scaffold new subproject')
     .action(function (name, subname, options) {
         console.log('create project %s subproject %s', name, subname);
-        require('./actions/create.js')(name);
+        require('./actions/create.js')({name});
     });
 
 program
