@@ -3,6 +3,7 @@ const fs = Promise.promisifyAll(require('fs'));
 const mkdirp = Promise.promisify(require('mkdirp'));
 const recursive = Promise.promisify(require('recursive-readdir'));
 import _ from 'lodash';
+import spawnChildProcess from '../utils/spawnChildProcess';
 
 import dbg from 'debug';
 const debug = dbg('rjanko:actions:create');
@@ -73,5 +74,6 @@ async function processTemplates(name) {
 export default async function({name}) {
   if (await createProjectDirOrThrowIfExists(name)) {
     processTemplates(name);
+    spawnChildProcess('npm', ['install'], {cwd: name});
   }
 };
