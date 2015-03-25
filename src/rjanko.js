@@ -3,8 +3,6 @@
 // polyfill for async/await
 import 'babel/polyfill';
 import program from 'commander';
-import colors from 'colors';
-import cliColor from 'colors';
 import _ from 'lodash';
 
 program.version(require('./../package.json').version);
