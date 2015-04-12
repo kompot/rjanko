@@ -1,6 +1,6 @@
 # rjanko 
 
-[![Build Status][travis-image]][travis-url] [![Coverage Status](coveralls-image)](coveralls-url)
+[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 Do not use it. Ever. Close this page straight away. Thanks.
 
