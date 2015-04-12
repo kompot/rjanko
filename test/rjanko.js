@@ -17,7 +17,7 @@ describe('Rjanko', function() {
       var createAction = require('../src/actions/create');
       createAction({name: tmpProjectName}).then(() => {
         assert.equal(fs.existsSync(tmpProjectName), true);
-        //assert.equal(fs.existsSync(`${tmpProjectName}/package.json`), true);
+        assert.equal(fs.existsSync(`${tmpProjectName}/package.json`), true);
         done()
       });
 
