@@ -8,3 +8,6 @@ notifications:
 node_js:
   - "0.12"
   - "iojs"
+
+after_success:
+  - 'npm run coverage && npm run sendToCoveralls'
