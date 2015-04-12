@@ -29,3 +29,6 @@ lib
 
 # IntelliJ IDEA project files
 .idea
+
+# isparta code coverage
+coverage

@@ -43,7 +43,12 @@ async function templateFile(name, filename) {
     const dstDirName = dstFileName.substr(0, dstFileName.lastIndexOf('/'));
     await createDirNested(`${dstDirName}`);
     const compiled = _.template(srcFileContents);
-    await writeFile(`${name}/${filename}`, compiled({rjanko: {name}}));
+    await writeFile(`${name}/${filename}`, compiled({
+      rjanko: {
+        name,
+        version: require('./../../package.json').version
+      }
+    }));
   } catch (e) {
     error(`Failed to template file ${filename}`);
   }
