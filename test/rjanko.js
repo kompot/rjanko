@@ -1,5 +1,6 @@
 import assert from 'assert';
 import fs from 'fs';
+import path from 'path';
 import rimraf from 'rimraf';
 
 const tmpProjectName = 'testRjankoProject';
@@ -13,14 +14,11 @@ describe('Rjanko', function() {
       }
     });
 
-    it('project directory should exist after creation', function(done){
+    it('project directory should exist after creation', async function(){
       var createAction = require('../src/actions/create');
-      createAction({name: tmpProjectName}).then(() => {
-        assert.equal(fs.existsSync(tmpProjectName), true);
-        //assert.equal(fs.existsSync(`${tmpProjectName}/package.json`), true);
-        done()
-      });
-
+      await createAction({name: tmpProjectName});
+      assert.equal(fs.existsSync(tmpProjectName), true);
+      assert.equal(fs.existsSync(path.join(tmpProjectName, 'package.json')), true);
     });
 
     after(function() {

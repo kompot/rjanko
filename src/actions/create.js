@@ -3,6 +3,7 @@ const fs = Promise.promisifyAll(require('fs'));
 const mkdirp = Promise.promisify(require('mkdirp'));
 const recursive = Promise.promisify(require('recursive-readdir'));
 import _ from 'lodash';
+import path from 'path';
 import spawnChildProcess from '../utils/spawnChildProcess';
 
 import dbg from 'debug';
@@ -33,20 +34,20 @@ async function readDir(dir) {
   return await recursive(dir);
 }
 
-const templatesDirName = 'node_modules/rjanko/lib/templates/';
+const templatesDirName = path.join(__dirname, '..', 'templates');
 
 async function templateFile(name, filename) {
   debug(`Templating ${filename}`);
   try {
-    const srcFileContents = await readFile(`${templatesDirName}${filename}`);
-    const dstFileName = `${name}/${filename}`;
-    const dstDirName = dstFileName.substr(0, dstFileName.lastIndexOf('/'));
+    const srcFileContents = await readFile(path.join(templatesDirName, filename));
+    const dstFileName = path.join(name, filename);
+    const dstDirName = dstFileName.substr(0, dstFileName.lastIndexOf(path.sep));
     await createDirNested(`${dstDirName}`);
     const compiled = _.template(srcFileContents);
-    await writeFile(`${name}/${filename}`, compiled({
+    await writeFile(dstFileName, compiled({
       rjanko: {
         name,
-        version: require('./../../package.json').version
+        version: require(path.join('.', '..', '..', 'package.json')).version
       }
     }));
   } catch (e) {
@@ -72,13 +73,16 @@ async function createProjectDirOrThrowIfExists(name) {
 }
 
 async function processTemplates(name) {
+  debug(`Will start processing templates in ${templatesDirName}`);
   const templates = await readDir(templatesDirName);
-  _.forEach(templates, t => templateFile(name, t.substr(templatesDirName.length)));
+  for (let t of templates) {
+    await templateFile(name, t.substr(templatesDirName.length))
+  }
 }
 
 export default async function({name}) {
   if (await createProjectDirOrThrowIfExists(name)) {
-    processTemplates(name);
+    await processTemplates(name);
     spawnChildProcess('npm', ['install'], {cwd: name});
   }
 };

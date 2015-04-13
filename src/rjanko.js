@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-// polyfill for async/await
-import 'babel/polyfill';
+import 'babel/register';
 import program from 'commander';
 import _ from 'lodash';
 
@@ -11,24 +10,24 @@ const commandStrings = ['create', 'dev'];
 const commands = _.object(commandStrings, commandStrings);
 
 program
-    .command(`${commands.create} [name]`)
-    .description('scaffold new project')
+  .command(`${commands.create} [name]`)
+  .description('scaffold new project')
     .action(function (name, options) {
         console.log('create project %s', name);
-        require(`./actions/${commands.create}.js`)({name});
-    });
+    require(`./actions/${commands.create}.js`)({name});
+  });
 
 program
-    .command(`${commands.dev}`)
-    .description('start development mode')
+  .command(`${commands.dev}`)
+  .description('start development mode')
     .action(function (options) {
         console.log('Starting development mode');
-        require(`./actions/${commands.dev}.js`)();
-    });
+    require(`./actions/${commands.dev}.js`)();
+  });
 
 program
-    .command('migrate')
-    .description('apply migrations');
+  .command('migrate')
+  .description('apply migrations');
 
 program.parse(process.argv);
 
