@@ -10,5 +10,5 @@ Do not use it. Ever. Close this page straight away. Thanks.
 [coveralls-image]: https://coveralls.io/repos/kompot/rjanko/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/r/kompot/rjanko?branch=master
 
-[david-image]: https://david-dm.org/kompot/rjanko
-[david-url]: https://david-dm.org/kompot/rjanko.svg
+[david-image]: https://david-dm.org/kompot/rjanko.svg
+[david-url]: https://david-dm.org/kompot/rjanko 
