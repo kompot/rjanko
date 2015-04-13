@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rjanko/rjanko.git"
+    "url": "https://github.com/kompot/rjanko.git"
   },
   "bin": {
     "rjanko": "./lib/rjanko.js"
@@ -21,9 +21,9 @@
   "author": "Anton Fedchenko <kompotik@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rjanko/rjanko/issues"
+    "url": "https://github.com/kompot/rjanko/issues"
   },
-  "homepage": "https://github.com/rjanko/rjanko",
+  "homepage": "https://github.com/kompot/rjanko",
   "dependencies": {
     "bluebird": "^2.9.24",
     "commander": "^2.7.1",
