@@ -1,8 +1,11 @@
 # rjanko 
 
-[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies Status][david-image]][david-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies Status][david-image]][david-url]
 
-Do not use it. Ever. Close this page straight away. Thanks.
+In heavy development until version 0.1.0. Use at your own risk. 
+
+[npm-image]: http://img.shields.io/npm/v/rjanko.svg
+[npm-url]: https://npmjs.org/package/rjanko
 
 [travis-image]: https://travis-ci.org/kompot/rjanko.svg?branch=master
 [travis-url]: https://travis-ci.org/kompot/rjanko
