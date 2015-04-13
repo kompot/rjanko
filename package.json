@@ -33,7 +33,7 @@
     "recursive-readdir": "^1.2.1"
   },
   "devDependencies": {
-    "babel": "^5.0.12",
+    "babel": "^5.1.2",
     "coveralls": "^2.11.2",
     "isparta": "^3.0.3",
     "mocha": "^2.2.4",
