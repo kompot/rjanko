@@ -2,7 +2,10 @@
   "name": "<%= rjanko.name %>",
   "version": "0.0.1",
   "dependencies": {
+    "babel": "^5.1.2",
     "express": "~4.x",
-    "rjanko": "~<%= rjanko.version %>"
+    "sequelize": "^2.0.5",
+    "sqlite3": "^3.0.5",
+    "rjanko": "<%= rjanko.version %>"
   }
 }

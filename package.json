@@ -7,7 +7,7 @@
     "compile": "babel -d lib/ src/",
     "copyTemplates": "cp -r src/templates/ lib/templates/",
     "prepublish": "npm run compile; npm run copyTemplates",
-    "test": "mocha --compilers js:babel/register",
+    "test": "NODE_ENV=test mocha --compilers js:babel/register --timeout 60000",
     "lint": "eslint src",
     "posttest": "npm run lint",
     "coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover $npm_package_config_ISPARTA_OPTS ./node_modules/.bin/_mocha",
@@ -36,6 +36,7 @@
     "recursive-readdir": "^1.2.1"
   },
   "devDependencies": {
+    "axios": "^0.5.4",
     "babel-eslint": "^3.0.1",
     "coveralls": "^2.11.2",
     "eslint": "^0.19.0",

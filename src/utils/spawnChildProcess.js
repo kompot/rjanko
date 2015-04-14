@@ -1,11 +1,20 @@
 import childProcess from 'child_process';
 
-export default function(cmd, args, options) {
+export default function(cmd, args, options, sync = false) {
 
-  const cp = childProcess.spawn(cmd, args, options);
+  const f = sync ? childProcess.spawnSync  : childProcess.spawn;
+  const cp = f(cmd, args, options);
 
-  cp.stdout.on('data', data => console.log('stdout: ' + data));
-  cp.stderr.on('data', data => console.log('stderr: ' + data));
-  cp.on('close',       code => console.log('child process exited with code ' + code));
+  if (cp.stdout.on) {
+    cp.stdout.on('data', data => console.log('stdout: ' + data));
+  }
+  if (cp.stderr.on) {
+    cp.stderr.on('data', data => console.log('stderr: ' + data));
+  }
+  if (cp.on) {
+    cp.on('close', code => console.log('child process exited with code ' + code));
+  }
+
+  return cp;
 
 }

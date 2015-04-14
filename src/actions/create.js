@@ -47,11 +47,13 @@ async function templateFile(name, filename) {
     await writeFile(dstFileName, compiled({
       rjanko: {
         name,
-        version: require(path.join('.', '..', '..', 'package.json')).version
+        version: process.env.NODE_ENV === 'test'
+          ? '../'
+          : require(path.join('.', '..', '..', 'package.json')).version
       }
     }));
   } catch (e) {
-    error(`Failed to template file ${filename}`);
+    error(`Failed to template file ${filename}`, e);
   }
 }
 
@@ -83,6 +85,6 @@ async function processTemplates(name) {
 export default async function({name}) {
   if (await createProjectDirOrThrowIfExists(name)) {
     await processTemplates(name);
-    spawnChildProcess('npm', ['install'], {cwd: name});
+    spawnChildProcess('npm', ['install'], {cwd: name}, true);
   }
 }

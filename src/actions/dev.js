@@ -1,5 +1,5 @@
 import spawnChildProcess from '../utils/spawnChildProcess';
 
 export default function() {
-  spawnChildProcess('node', ['server.js']);
+  return spawnChildProcess('babel-node', ['server.js'], {}, true);
 }
