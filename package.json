@@ -34,7 +34,10 @@
     "recursive-readdir": "^1.2.1"
   },
   "devDependencies": {
+    "babel-eslint": "^3.0.1",
     "coveralls": "^2.11.2",
+    "eslint": "^0.19.0",
+    "eslint-plugin-react": "^2.1.0",
     "isparta": "^3.0.3",
     "mocha": "^2.2.4",
     "rimraf": "^2.3.2"

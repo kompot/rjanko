@@ -12,16 +12,16 @@ const commands = _.object(commandStrings, commandStrings);
 program
   .command(`${commands.create} [name]`)
   .description('scaffold new project')
-    .action(function (name, options) {
-        console.log('create project %s', name);
+  .action((name) => {
+    console.log('create project %s', name);
     require(`./actions/${commands.create}.js`)({name});
   });
 
 program
   .command(`${commands.dev}`)
   .description('start development mode')
-    .action(function (options) {
-        console.log('Starting development mode');
+  .action(() => {
+    console.log('Starting development mode');
     require(`./actions/${commands.dev}.js`)();
   });
 

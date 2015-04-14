@@ -76,7 +76,7 @@ async function processTemplates(name) {
   debug(`Will start processing templates in ${templatesDirName}`);
   const templates = await readDir(templatesDirName);
   for (let t of templates) {
-    await templateFile(name, t.substr(templatesDirName.length))
+    await templateFile(name, t.substr(templatesDirName.length));
   }
 }
 
@@ -85,4 +85,4 @@ export default async function({name}) {
     await processTemplates(name);
     spawnChildProcess('npm', ['install'], {cwd: name});
   }
-};
+}
