@@ -2,7 +2,7 @@ import spawnChildProcess from '../utils/spawnChildProcess';
 import dbg from 'debug';
 const debug = dbg('rjanko:actions:dev');
 
-export default function() {
+export default function({name}) {
   debug(`Starting development server`);
-  return spawnChildProcess('babel-node', ['server.js'], {}, true);
+  return spawnChildProcess('babel-node', ['server.js'], {cwd: name});
 }
