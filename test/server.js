@@ -4,7 +4,7 @@ import path from 'path';
 import rimraf from 'rimraf';
 import axios from 'axios';
 
-const tmpProjectName = 'testRjankoProject';
+const tmpProjectName = 'testRjankoProject1';
 
 describe('Rjanko', function() {
   describe('server', function() {
@@ -26,7 +26,7 @@ describe('Rjanko', function() {
     });
 
     after(function() {
-      rimraf.sync(tmpProjectName);
+      //rimraf.sync(tmpProjectName);
     })
 
   })
