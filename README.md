@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies Status][david-image]][david-url]
 
-In heavy development until version 0.1.0. Use at your own risk. 
+In heavy development until version 0.1.0. Not nearly usable until then.
 
 [npm-image]: http://img.shields.io/npm/v/rjanko.svg
 [npm-url]: https://npmjs.org/package/rjanko
