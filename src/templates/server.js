@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 
-import Sequelize from 'Sequelize';
+import Sequelize from 'sequelize';
 
 import db from './db';
 
