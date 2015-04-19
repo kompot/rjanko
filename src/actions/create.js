@@ -34,7 +34,7 @@ async function readDir(dir) {
   return await recursive(dir);
 }
 
-const templatesDirName = path.join(__dirname, '..', 'templates');
+const templatesDirName = path.join(__dirname, '..', '..', 'templates');
 
 async function templateFile(name, filename) {
   debug(`Templating ${filename}`);

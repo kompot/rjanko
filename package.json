@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "babel -d lib/ src/",
-    "copyTemplates": "cp -r src/templates/ lib/templates/",
-    "prepublish": "npm run compile; npm run copyTemplates",
+    "prepublish": "npm run compile",
     "test": "DEBUG=rjanko:* NODE_ENV=test mocha --compilers js:babel/register --timeout 60000",
     "lint": "eslint src",
     "posttest": "npm run lint",

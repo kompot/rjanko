@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "dependencies": {
     "babel": "^5.1.2",
-    "express": "~4.x",
+    "express": "^4.12.3",
+    "rjanko": "<%= rjanko.version %>",
     "sequelize": "^2.0.5",
-    "sqlite3": "^3.0.5",
-    "rjanko": "<%= rjanko.version %>"
+    "sqlite3": "^3.0.5"
   }
 }
