@@ -23,11 +23,11 @@ describe('Rjanko', function() {
       await require('../src/actions/create')({name: tmpProjectName});
       devServer = require('../src/actions/dev')({name: tmpProjectName});
       setTimeout(function() {
-        axios.get('http://127.0.0.1:3000').then(function (response) {
+        axios.get('http://127.0.0.1:5000').then(function (response) {
           assert.equal(response.status, 200);
           done();
         });
-      }, 3000);
+      }, 15000);
     });
 
     after(function() {

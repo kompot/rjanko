@@ -5,8 +5,8 @@ const debug = dbg('rjanko:actions:dev');
 export default function({name}) {
   debug(`Starting development server`);
   return spawnChildProcess(
-      './node_modules/.bin/babel-node',
-      ['./src/server.js'],
+      'forego',
+      ['start'],
       {cwd: name}
   );
 }

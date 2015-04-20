@@ -43,7 +43,9 @@ async function templateFile(name, filename) {
     const dstFileName = path.join(name, filename);
     const dstDirName = dstFileName.substr(0, dstFileName.lastIndexOf(path.sep));
     await createDirNested(`${dstDirName}`);
-    const compiled = _.template(srcFileContents);
+    const compiled = _.template(srcFileContents, {
+      interpolate: /\<\%=(.+?)\%\>/g
+    });
     await writeFile(dstFileName, compiled({
       rjanko: {
         name,
