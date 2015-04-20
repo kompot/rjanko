@@ -15,4 +15,4 @@ after_success:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install nginx
-  - sudo apt-get install forego
+  - wget -P /usr/local/bin https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego && chmod u+x /usr/local/bin/forego
