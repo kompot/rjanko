@@ -33,3 +33,6 @@ lib
 
 # isparta code coverage
 coverage
+
+templates/build
+templates/_records.json

@@ -1,0 +1,2 @@
+nginx: nginx -p $(pwd) -c $(pwd)/nginx.conf
+node: npm run dev
