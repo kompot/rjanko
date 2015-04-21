@@ -27,7 +27,7 @@ describe('Rjanko', function() {
           assert.equal(response.status, 200);
           done();
         });
-      }, 15000);
+      }, 50000);
     });
 
     after(function() {
