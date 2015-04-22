@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
-    "test": "DEBUG=rjanko:* NODE_ENV=test mocha --compilers js:babel/register --timeout 180000",
+    "test": "DEBUG=rjanko:* NODE_ENV=test mocha --compilers js:babel/register --timeout 600000",
     "lint": "eslint src",
     "posttest": "npm run lint",
     "coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover $npm_package_config_ISPARTA_OPTS ./node_modules/.bin/_mocha",
