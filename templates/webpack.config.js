@@ -3,7 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 var nib = require('nib');
 var jeet = require('jeet');
-var StatsPlugin = require('./statsPlugin');
+var StatsPlugin = require('rjanko/lib/statsPlugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var prod = process.env.NODE_ENV === 'production';

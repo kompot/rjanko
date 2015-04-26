@@ -1,0 +1,8 @@
+node:
+  build: .
+  command: /code/node_modules/.bin/rjanko dev
+  ports:
+   - "3000:3000"
+   - "3001:3001"
+  volumes:
+   - .:/code

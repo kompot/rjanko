@@ -18,6 +18,14 @@ program
   });
 
 program
+  .command(`${commands.init}`)
+  .description('scaffold new project in current directory')
+  .action(() => {
+    console.log('init project');
+    require(`./actions/${commands.init}.js`)();
+  });
+
+program
   .command(`${commands.dev}`)
   .description('start development mode')
   .action(() => {

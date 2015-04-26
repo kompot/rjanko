@@ -50,7 +50,7 @@ async function templateFile(name, filename) {
       rjanko: {
         name,
         version: process.env.NODE_ENV === 'test'
-          ? '../'
+          ? 'file:../'
           : require(path.join('.', '..', '..', 'package.json')).version
       }
     }));
