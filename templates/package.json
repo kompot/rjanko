@@ -1,8 +1,8 @@
 {
-  "name": "test-project",
+  "name": "<%= rjanko.name %>",
   "version": "0.0.1",
   "dependencies": {
     "babel": "^5.x",
-    "rjanko": "file:../"
+    "rjanko": "<%= rjanko.version %>"
   }
 }
