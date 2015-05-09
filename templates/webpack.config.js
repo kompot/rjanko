@@ -1,8 +1,6 @@
 var os = require('os');
 var path = require('path');
 var webpack = require('webpack');
-var nib = require('nib');
-var jeet = require('jeet');
 var StatsPlugin = require('rjanko/lib/statsPlugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -60,9 +58,6 @@ var config = {
       'es6-promise': 'bluebird'
     },
     extensions: ['', '.js', '.jsx']
-  },
-  stylus: {
-    use: [nib(), jeet()]
   },
   bail: prod,
   module: {
