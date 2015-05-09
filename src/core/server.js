@@ -95,7 +95,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
 
   var webpackServer = new WebpackDevServer(webpack(require(
-      path.join(path.dirname(process.argv[1]), '../webpack.config')
+      path.join(path.dirname(process.argv[1]), '..', 'webpack.config')
   )), {
     publicPath: 'http://0.0.0.0:3001/build/',
     watchDelay: 0,
