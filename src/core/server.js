@@ -20,7 +20,7 @@ import marshall from './marshall';
 import settings from './settings';
 
 const app = express();
-const statsJsonPath = path.join(__dirname, '..', '..', '..', '..', 'build', '_stats.json');
+const statsJsonPath = path.join(path.dirname(process.argv[1]), '..', 'build', '_stats.json');
 const debug = require('debug')('rjanko:server');
 
 function renderHtml(res, data, webpackAssets) {
@@ -87,14 +87,16 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(function(err, req, res, next) {
     if (err) {
-      console.log(err.stack);
+      debug(err.stack);
       res.send('internal error ;(');
     }
   });
 
 } else {
 
-  var webpackServer = new WebpackDevServer(webpack(require(path.join('..', '..', '..', '..', 'webpack.config'))), {
+  var webpackServer = new WebpackDevServer(webpack(require(
+      path.join(path.dirname(process.argv[1]), '../webpack.config')
+  )), {
     publicPath: 'http://0.0.0.0:3001/build/',
     watchDelay: 0,
     hot: true,
@@ -111,7 +113,7 @@ if (process.env.NODE_ENV === 'production') {
 
   webpackServer.listen(3001, '0.0.0.0', function (err, result) {
     if (err) {
-      console.log(err);
+      debug(err);
     } else {
       debug('webpack server listening on 3001');
     }
@@ -131,7 +133,7 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(function(err, req, res, next) {
     if (err) {
-      console.log(err.stack);
+      debug(err.stack);
       res.send('<html><body><pre>' + err.stack + '</pre></body></html>');
     }
   });
@@ -174,7 +176,7 @@ io.on('connection', function(socket){
 
 server.listen(port, function(err, result) {
   if (err) {
-    console.log(err);
+    debug(err);
   }
   debug(`express listening on ${port}`);
 });

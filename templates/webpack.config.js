@@ -2,7 +2,7 @@ var os = require('os');
 var path = require('path');
 var webpack = require('webpack');
 var StatsPlugin = require('rjanko/lib/statsPlugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+//var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var prod = process.env.NODE_ENV === 'production';
 
@@ -64,15 +64,19 @@ var config = {
     loaders: [
       {
         test: /\.styl$/,
-        loader: prod
-          ? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
-          :                              'style!css!autoprefixer?' + autoPrefixerCfg + '!stylus'
+        loader:
+          //  prod
+          //? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
+          //:
+            'style!css!autoprefixer?' + autoPrefixerCfg + '!stylus'
       },
       {
         test: /\.css$/,
-        loader: prod
-          ? ExtractTextPlugin.extract('style', 'css')
-          : 'style!css'
+        loader:
+          //  prod
+          //? ExtractTextPlugin.extract('style', 'css')
+          //:
+            'style!css'
       },
       {
         test: /\.(ttf|woff|woff2|eot|gif|png|jpg|mp3|mp4|webm|ogg)(\?.+)?$/,
@@ -104,10 +108,10 @@ var config = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || "development")
     }),
-    new webpack.optimize.DedupePlugin(),
-    new ExtractTextPlugin('[name].[contenthash].css', {
-      allChunks: true
-    }),
+    //new webpack.optimize.DedupePlugin(),
+    //new ExtractTextPlugin('[name].[contenthash].css', {
+    //  allChunks: true
+    //}),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
     new webpack.NoErrorsPlugin(),
     new StatsPlugin()
