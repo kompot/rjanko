@@ -114,7 +114,8 @@ var config = {
     //}),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
     new webpack.NoErrorsPlugin(),
-    new StatsPlugin()
+    new StatsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin()
   ],
   recordsPath: path.join(__dirname, '_records.json')
 };
@@ -126,7 +127,6 @@ if (prod) {
   config.output.devtoolFallbackModuleFilenameTemplate = "file://[resource-path]?[hash]";
 
   config.plugins.push(
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({comments: /a^/, compress: {warnings: false}})
   );
 

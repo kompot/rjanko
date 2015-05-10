@@ -20,7 +20,7 @@ import marshall from './marshall';
 import settings from './settings';
 
 const app = express();
-const statsJsonPath = path.join(path.dirname(process.argv[1]), '..', 'build', '_stats.json');
+const statsJsonPath = path.join(path.dirname(process.argv[1]), 'build', '_stats.json');
 const debug = require('debug')('rjanko:server');
 
 function renderHtml(res, data, webpackAssets) {
@@ -94,9 +94,7 @@ if (process.env.NODE_ENV === 'production') {
 
 } else {
 
-  var webpackServer = new WebpackDevServer(webpack(require(
-      path.join(path.dirname(process.argv[1]), '..', 'webpack.config')
-  )), {
+  var webpackServer = new WebpackDevServer(webpack(require('./webpack.config.js')), {
     publicPath: 'http://0.0.0.0:3001/build/',
     watchDelay: 0,
     hot: true,
@@ -180,53 +178,3 @@ server.listen(port, function(err, result) {
   }
   debug(`express listening on ${port}`);
 });
-
-
-
-
-//app.get('/admin', (req, res) => {
-//  res.send('Welcome to admin of <%= rjanko.name %>')
-//});
-//
-//app.get('/', (req, res) => {
-//  res.send(`Hello World, <%= rjanko.name %>!`);
-//});
-
-//app.post('/users', (req, res) => {
-//
-//  var User = db.define('user', {
-//    firstName: {
-//      type: Sequelize.STRING,
-//      field: 'first_name'
-//    },
-//    lastName: {
-//      type: Sequelize.STRING
-//    }
-//  }, {
-//    freezeTableName: true
-//  });
-//
-//
-//  User.sync({force: true}).then(function () {
-//    // Table created
-//    return User.create({
-//      firstName: 'Антон',
-//      lastName: 'Федченко'
-//    });
-//  });
-//
-//  res.send(`Post users`);
-//});
-//
-//app.get('/users', (req, res) => {
-//  res.send(`Get users`);
-//});
-
-//const server = app.listen(3000, () => {
-//
-//  const host = server.address().address;
-//  const port = server.address().port;
-//
-//  console.log('Example app listening at http://%s:%s', host, port);
-//
-//});
