@@ -44,7 +44,7 @@
     "eslint-plugin-react": "^2.2.0",
     "express": "^4.12.3",
     "flux-router-component": "^0.6.2",
-    "fontfaceobserver": "^1.4.8",
+    "fontfaceobserver": "^1.4.9",
     "immutable": "^3.7.2",
     "isparta": "^3.0.3",
     "jspath": "^0.3.1",
@@ -68,7 +68,7 @@
     "source-map-support": "^0.2.10",
     "style-loader": "^0.12.2",
     "stylus": "^0.51.1",
-    "stylus-loader": "^1.1.0",
+    "stylus-loader": "^1.1.1",
     "transit-js": "^0.8.795",
     "webpack": "^1.9.4",
     "webpack-dev-server": "^1.8.2"
