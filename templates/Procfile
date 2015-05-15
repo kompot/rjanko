@@ -1,2 +1,4 @@
 nginx: nginx -p $(pwd) -c $(pwd)/nginx.conf
-node: npm run dev
+node-server: nodemon server.js
+node-webpack-client: babel-node ./node_modules/rjanko/src/core/server.dev.js
+node-webpack-server: webpack --config webpack.config.server.js

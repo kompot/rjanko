@@ -18,10 +18,10 @@ setTimeout(function() {
       "js": "node"
     },
     "script": "server.js",
-    "ignore": ["*"],
-    "watch": ["nothing/"],
-    //"watch": ["server.js"],
-    "ext": "noop"
+    //"ignore": ["*"],
+    //"watch": ["nothing/"],
+    "watch": ["server.js"],
+    //"ext": "noop"
   }).on('restart', function() {
     console.log('Patched!');
     setTimeout(function() {

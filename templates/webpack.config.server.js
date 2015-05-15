@@ -7,7 +7,7 @@ var webpack = require('webpack');
 var prod = process.env.NODE_ENV === 'production';
 
 var nodeModules = {
-  "./webpack.config.js": "./webpack.config.js"
+  //"./webpack.config.client.js": "./webpack.config.client.js"
 };
 
 fs.readdirSync('node_modules')
@@ -20,9 +20,7 @@ fs.readdirSync('node_modules')
 
 var config = {
   entry: {
-    server: [
-      './src/server2.js'
-    ]
+    server: ['./src/server.js']
   },
   output: {
   //  //path: path.join(__dirname, 'build-server'),
@@ -34,10 +32,10 @@ var config = {
   //})),
   externals: nodeModules,
   resolve: {
-    //alias: {
+    alias: {
       // axios requires `es6-promise` polyfill so we replace it with bluebird
-      //'es6-promise': 'bluebird'
-    //},
+      'es6-promise': 'bluebird'
+    },
     extensions: ['', '.js']
   },
   bail: prod,
@@ -56,7 +54,7 @@ var config = {
       {
         //test: /src\/.+\.js?$/,
         test: /\.js$/,
-        exclude: /node_modules/,
+        include: /src/,
         loaders:
             //prod
             // the optional 'runtime' transformer tells babel to require
@@ -64,7 +62,12 @@ var config = {
             //?
             //[             'babel-loader?stage=0&optional=runtime']
             //:
-            ['monkey-hot', 'babel?stage=0&optional=runtime']
+            //['monkey-hot', 'babel?stage=0&optional=runtime']
+            ['babel?stage=0&optional=runtime']
+      },
+      {
+        test: /\.json$/,
+        loaders: ['json']
       }
     ]
   },
@@ -92,7 +95,7 @@ var config = {
 
 if (prod) {
 
-  config.devtool = 'sourcemap';
+  config.devtool = 'source-map';
   //config.output.devtoolModuleFilenameTemplate = "file://[resource-path]";
   //config.output.devtoolFallbackModuleFilenameTemplate = "file://[resource-path]?[hash]";
   //
@@ -102,7 +105,9 @@ if (prod) {
 
 } else {
   //config.devtool = 'eval';
-  config.devtool = 'source-map';
+  //config.devtool = ' cheap-module-inline-source-map';
+  //config.devtool = 'cheap-source-map';
+  //config.devtool = 'source-map';
   //config.debug = true;
 
   for (var key in config.entry) {
@@ -110,12 +115,12 @@ if (prod) {
       config.entry[key].unshift(
         //'webpack-dev-server/client?http://127.0.0.1:3001',
         //'webpack/hot/only-dev-server'
-        'webpack/hot/signal.js'
+        //'webpack/hot/signal.js'
       );
     }
   }
 
-  config.plugins.push(new webpack.HotModuleReplacementPlugin({ quiet: true }));
+  //config.plugins.push(new webpack.HotModuleReplacementPlugin({ quiet: true }));
 }
 
 module.exports = config;

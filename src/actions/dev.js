@@ -1,12 +1,21 @@
 import spawnChildProcess from '../utils/spawnChildProcess';
-import dbg from 'debug';
-const debug = dbg('rjanko:actions:dev');
+const debug = require('debug')('rjanko:actions:dev');
 
 export default function() {
   debug(`Starting development server`);
-  return spawnChildProcess(
+  spawnChildProcess(
+      './node_modules/.bin/webpack',
+      ['--watch', '--config', 'webpack.config.server.js'],
+      {}
+  );
+  spawnChildProcess(
+      './node_modules/.bin/nodemon',
+      ['server.js'],
+      {}
+  );
+  spawnChildProcess(
       './node_modules/.bin/babel-node',
-      ['-r', '--stage', '0', 'src/server.js'],
+      ['./node_modules/rjanko/src/core/server.webpack.js'],
       {}
   );
 }

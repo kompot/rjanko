@@ -48,7 +48,7 @@ var config = {
     app: ['./src/client']
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(process.cwd(), 'build'),
     publicPath: '/build/',
     filename: '[name].[chunkhash].js'
   },

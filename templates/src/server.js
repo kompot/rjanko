@@ -1,1 +1,1 @@
-require('rjanko/src/core/server');
+require('rjanko/src/core/server.dev');
