@@ -1,4 +1,2 @@
 nginx: nginx -p $(pwd) -c $(pwd)/nginx.conf
-node-server: nodemon server.js
-node-webpack-client: babel-node ./node_modules/rjanko/src/core/server.dev.js
-node-webpack-server: webpack --config webpack.config.server.js
+rjanko: ./node_modules/.bin/rjanko dev

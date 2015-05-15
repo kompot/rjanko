@@ -10,23 +10,22 @@ import SocketIoServer from './SocketIoServer';
 
 const debug = require('debug')('rjanko:server.dev');
 const expressApp = express();
-const statsJsonPath = path.join(process.cwd(), 'build', '_stats.json');
+//const statsJsonPath = path.join(process.cwd(), 'build', '_stats.json');
 
 import renderApp from './renderApp';
 
-async function readWebpackBuildStats() {
-  const {data} = await axios.get('http://127.0.0.1:3001/build/_stats.json');
-  return data;
+const readWebpackBuildStats = () => {
+  return axios.get('http://127.0.0.1:3001/build/_stats.json');
 }
 
-expressApp.get('/_webpack_stats.json', function(req, res, next) {
-  const webpackAssets = readWebpackBuildStats();
-  res.send(webpackAssets);
+expressApp.get('/_webpack_stats.json', async function(req, res, next) {
+  const webpackAssets = await readWebpackBuildStats();
+  res.send(webpackAssets.data);
 });
 
-expressApp.use(function(req, res, next) {
-  const webpackAssets = readWebpackBuildStats();
-  renderApp(req, res, next, webpackAssets).catch(next);
+expressApp.use(async function(req, res, next) {
+  const webpackAssets = await readWebpackBuildStats();
+  renderApp(req, res, next, webpackAssets.data).catch(next);
 });
 
 expressApp.use(function(err, req, res, next) {
