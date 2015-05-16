@@ -14,30 +14,41 @@ export function shouldComponentUpdate(nextProps, nextState) {
 }
 
 
-export default function component(displayName, desc, noDataStub) {
-  if (typeof desc === 'function') {
-    const render = desc;
-    desc = {
-      render() {
-        const {data} = this.props;
-        if ((data instanceof Reference) && (typeof data.deref() === 'undefined')) {
-          if (noDataStub) {
-            return noDataStub(this.props, this.state);
-          } else {
-            return (
-              <div className={classnames(displayName, `${displayName}--loading`)}>
-                loading
-              </div>
-            );
-          }
-        }
-        return render(this.props, this.state);
-      }
-    };
+export class Component extends React.Component {
+
+  getDataPath() {
+    return [];
   }
-  desc.displayName = displayName;
-  desc.shouldComponentUpdate = shouldComponentUpdate;
-  return React.createClass(desc);
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shouldComponentUpdate.call(this, nextProps, nextState);
+  }
+
+  renderLoading() {
+    return <Indicator />;
+  }
+
+  renderLoaded() {
+    throw new Error('renderLoaded not implemented');
+  }
+
+  isLoaded({data}) {
+    if (data instanceof Reference) {
+      const dataCursor = data.cursor(this.getDataPath());
+      if (typeof dataCursor.deref() === 'undefined') {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  render() {
+    if (!this.isLoaded(this.props, this.state)) {
+      return this.renderLoading();
+    }
+    return this.renderLoaded(this.props, this.state);
+  }
+
 }
 
 
