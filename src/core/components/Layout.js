@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 
 import {Component} from './component';
 import DataDisplay from './DataDisplay';
+import Login from '../admin/Login';
 import Link from './Link';
 
 const pages = {
@@ -12,7 +13,9 @@ const pages = {
   },
 
   admin(data, params, query) {
-    return <div data={data} params={params} query={query}>a d m i n</div>;
+    return <div data={data} params={params} query={query}>
+      <Login form={data.cursor(['admin', 'loginForm'])} />
+    </div>;
   },
 
   404(data, params, query) {

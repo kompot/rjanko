@@ -21,7 +21,7 @@ const readWebpackBuildStats = (req) => {
   } else {
     return axios.get('http://127.0.0.1:3001/build/_stats.json');
   }
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
   expressApp.use('/build', express.static(path.join(process.cwd(), 'build')));
@@ -31,6 +31,60 @@ if (process.env.NODE_ENV === 'production') {
 //  const webpackAssets = readWebpackBuildStats();
 //  res.send(webpackAssets);
 //});
+
+
+/**
+ * Passport js related start
+ */
+import passport from 'passport';
+import {Strategy as LocalStrategy} from 'passport-local';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import expressSession from 'express-session';
+
+expressApp.use(cookieParser());
+expressApp.use(bodyParser.urlencoded({
+  extended: true
+}));
+expressApp.use(bodyParser.json());
+expressApp.use(expressSession({
+  secret: 'sessionSuperVerySecret',
+  resave: true,
+  saveUninitialized: true
+}));
+expressApp.use(passport.initialize());
+expressApp.use(passport.session());
+
+// serialize user ID to session
+passport.serializeUser((user, done) => done(null, user.id));
+
+import User from '../models/User';
+
+passport.deserializeUser(function(id, done) {
+  return new User(id);
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    debug(`_____username`, username, `password`, password);
+    if (username === 'admin' && password === '12345') {
+      return done(null, {id: 1});
+    } else {
+      return done(null, false, {
+        message: 'Incorrect username or password.'
+      });
+    }
+  }
+));
+
+expressApp.post('/api/login', passport.authenticate('local', {
+  successRedirect: '/loginSuccess',
+  failureRedirect: '/loginFailure'
+}));
+/**
+ * Passport js related end
+ */
+
 
 expressApp.use(async function(req, res, next) {
   const webpackAssets = await readWebpackBuildStats(req);
