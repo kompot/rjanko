@@ -10,13 +10,15 @@ var nodeModules = {
   //"./webpack.config.client.js": "./webpack.config.client.js"
 };
 
-fs.readdirSync('node_modules')
+['node_modules', 'node_modules/rjanko/node_modules'].map(function (dir) {
+  fs.readdirSync(dir)
     .filter(function(x) {
       return ['.bin'].indexOf(x) === -1;
     })
     .forEach(function(mod) {
       nodeModules[mod] = 'commonjs ' + mod;
     });
+});
 
 var config = {
   entry: {
@@ -55,6 +57,7 @@ var config = {
         //test: /src\/.+\.js?$/,
         test: /\.js$/,
         include: /src/,
+        //exclude: /node_modules/,
         loaders:
             //prod
             // the optional 'runtime' transformer tells babel to require
