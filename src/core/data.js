@@ -8,7 +8,7 @@ module.exports = {
   nav: [
     {
       title: 'Users',
-      name: 'users',
+      name: 'users'
     },
     {
       title: 'Admin',

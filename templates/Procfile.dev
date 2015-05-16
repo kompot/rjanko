@@ -1,0 +1,2 @@
+nginx: nginx -p $(pwd) -c $(pwd)/nginx.dev.conf
+rjanko: npm run dev

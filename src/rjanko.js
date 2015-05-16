@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 program.version(require('./../package.json').version);
 
-const commandStrings = ['create', 'dev'];
+const commandStrings = ['create', 'dev', 'prod'];
 const commands = _.object(commandStrings, commandStrings);
 
 program
@@ -31,6 +31,14 @@ program
   .action(() => {
     console.log('Starting development mode');
     require(`./actions/${commands.dev}.js`)();
+  });
+
+program
+  .command(`${commands.prod}`)
+  .description('start production mode')
+  .action(() => {
+    console.log('Starting production mode');
+    require(`./actions/${commands.prod}.js`)();
   });
 
 program

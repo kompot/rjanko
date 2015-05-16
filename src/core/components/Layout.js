@@ -28,8 +28,10 @@ const pages = {
 
 export default component('Layout', function({data}) {
   const pageName = data.cursor(['route', 'name']).deref();
-  const params = data.cursor(['route', 'params']).deref().toJS();
-  const query = data.cursor(['route', 'query']).deref().toJS();
+  const params = data.cursor(['route', 'params']).deref() &&
+      data.cursor(['route', 'params']).deref().toJS();
+  const query = data.cursor(['route', 'query']).deref() &&
+      data.cursor(['route', 'query']).deref().toJS();
   return (
     <div className='Layout'>
       <h1>{data.cursor(['header', 'title']).deref()}</h1>

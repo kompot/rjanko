@@ -9,8 +9,6 @@ import routes, {actions} from './routes';
 import marshall from './marshall';
 import Structure from './Structure';
 
-//import './utils/requireImages';
-
 const history = new History();
 
 const debug = require('debug')('rjanko:client');

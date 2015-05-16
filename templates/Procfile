@@ -1,2 +1,0 @@
-nginx: nginx -p $(pwd) -c $(pwd)/nginx.conf
-rjanko: ./node_modules/.bin/rjanko dev
