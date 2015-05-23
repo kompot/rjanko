@@ -1,9 +1,11 @@
 import React from 'react';
 import {Component} from './component';
 
-export default class Html extends Component {
+export default class Html extends React.Component {
 
-  renderLoaded({webpackAssets, markup, state}) {
+  render() {
+    const {webpackAssets, markup, state} = this.props;
+
     return (
       <html>
         <head>
@@ -20,7 +22,7 @@ export default class Html extends Component {
           <script src={webpackAssets['app.js']} />
         </body>
       </html>
-    )
+    );
   }
 
 }
