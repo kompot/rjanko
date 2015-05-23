@@ -32,8 +32,6 @@ var config = {
       'classnames',
       //'css-loader/cssToString',
       'debug',
-      'fontfaceobserver/fontfaceobserver.standalone',
-      'immutable',
       'jspath',
       'lodash',
       'raf',
@@ -41,7 +39,6 @@ var config = {
       'routr',
       'socket.io-client',
       'style-loader/addStyles',
-      'transit-js',
       'moment',
       'flux-router-component/lib/History'
     ],

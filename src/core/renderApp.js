@@ -7,12 +7,10 @@ import Promise from 'bluebird';
 import React from 'react';
 import Baobab from 'baobab';
 
-import Structure from './Structure';
 import initData from './data';
 import Html from './components/Html';
 import Layout from './components/Layout';
 import routes, {actions} from './routes';
-import marshall from './marshall';
 import settings from './settings';
 
 import {root} from 'baobab-react/higher-order';

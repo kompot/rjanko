@@ -6,8 +6,6 @@ import debug from 'debug';
 import {branch} from 'baobab-react/decorators';
 import PropTypes from 'baobab-react/prop-types';
 
-import {Reference} from '../Structure';
-import immutableShallowEqual from '../immutableShallowEqual';
 import routes from '../routes';
 import Actions from '../actions';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Immutable from 'immutable';
 
 import {Component} from './component';
 import DataDisplay from './DataDisplay';

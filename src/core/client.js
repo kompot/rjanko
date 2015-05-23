@@ -1,6 +1,5 @@
 import React from 'react';
 import Promise from 'bluebird';
-import Immutable from 'immutable';
 import History from 'flux-router-component/lib/History';
 import queryString from 'query-string';
 import Baobab from 'baobab';
