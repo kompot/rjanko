@@ -1,33 +1,43 @@
 import React from 'react';
 import axios from 'axios';
+import {branch} from 'baobab-react/decorators';
+import PropTypes from 'baobab-react/prop-types';
+import Actions from '../actions';
 
 import {Component} from '../components/component';
 
+@branch({
+  cursors: {
+    username: ['admin', 'loginForm', 'username'],
+    password: ['admin', 'loginForm', 'password']
+  }
+})
 export default class Login extends Component {
 
   login = () => {
-    const d = this.props.form.deref().toJS();
-    axios.post('/api/login', d);
+    const {username, password} = this.props;
+    //axios.post('/api/login', d);
+    this.actions.admin.login({username, password});
   };
 
   usernameChanged = (e) => {
-    this.props.form.cursor('username').set(e.target.value);
+    this.cursors.username.set(e.target.value);
   };
 
   passwordChanged = (e) => {
-    this.props.form.cursor('password').set(e.target.value);
+    this.cursors.password.set(e.target.value);
   };
 
-  renderLoaded({form}) {
+  renderLoaded({username, password}) {
     return (
       <div>
         <h1>Login</h1>
         <dl>
           <dt>username</dt>
-          <dd><input name='username' value={form.get('username')}
+          <dd><input name='username' value={username}
                      onChange={this.usernameChanged} /></dd>
           <dt>password</dt>
-          <dd><input name='password' value={form.get('password')}
+          <dd><input name='password' value={password}
                      onChange={this.passwordChanged} /></dd>
         </dl>
         <button onClick={this.login}>login</button>

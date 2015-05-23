@@ -3,31 +3,34 @@ import Promise from 'bluebird';
 import Immutable from 'immutable';
 import History from 'flux-router-component/lib/History';
 import queryString from 'query-string';
+import Baobab from 'baobab';
+import {root} from 'baobab-react/higher-order';
 
 import Layout from './components/Layout';
 import routes, {actions} from './routes';
-import marshall from './marshall';
-import Structure from './Structure';
 
 const history = new History();
 
 const debug = require('debug')('rjanko:client');
 
-const data = new Structure(marshall.parse(window._app_state_), true);
+const data = new Baobab(window._app_state_, {
+  syncwrite: true
+});
 
 function setRouteTo(route) {
-  const newRoute = Immutable.fromJS({
+  const newRoute = {
     name: route.name,
     params: route.params,
     query: route.query
-  });
-  if (Immutable.is(newRoute, data.cursor('route').deref())) {
+  };
+  var routeCursor = data.select('route');
+  if (_.isEqual(newRoute, routeCursor.get())) {
     return;
   }
-  data.cursor('route').set(newRoute);
+  data.set('route', newRoute);
 }
 
-routes.navigateTo = function(url, fromHistory=false) {
+routes.navigateTo = function(url, fromHistory = false) {
   if (!fromHistory) {
     history.pushState({}, 'no title', url);
   }
@@ -58,19 +61,7 @@ history.on(() => {
 const container = document.getElementById('app');
 
 function render() {
-  React.render(<Layout data={data.cursor()} />, container);
+  const BaobabInjectedLayout = root(Layout, data);
+  React.render(<BaobabInjectedLayout />, container);
 }
-
-const fontPromises = [
-  new FontFaceObserver('Roboto', {weight: 400}).check(null, 2000)
-];
-
-debug('waiting for fonts to load');
-
-Promise.all(fontPromises).then(function() {
-  debug('fonts loaded');
-  render();
-  data.on('change', render);
-}).catch(function(e) {
-  debug('failed to load fonts', e);
-});
+render();

@@ -1,9 +1,13 @@
 import JSPath from 'jspath';
 import _ from 'lodash'
 import React from 'react';
+import {branch} from 'baobab-react/decorators';
 
-import marshall from '../marshall';
-
+@branch({
+  cursors: {
+    data: []
+  }
+})
 export default class DataDisplay extends React.Component {
 
   constructor(props) {
@@ -21,7 +25,7 @@ export default class DataDisplay extends React.Component {
     }
   }
 
-  filterByValue(e) {
+  filterByValue = (e) => {
     this.setState({query: e.target.value});
   }
 
@@ -30,7 +34,7 @@ export default class DataDisplay extends React.Component {
       return null;
     }
 
-    let filtered = JSON.parse(marshall.stringify(this.props.data.deref()));
+    let filtered = this.props.data;
     let invalidJSPath = false;
     if (!_.isEmpty(this.state.query)) {
       try {
@@ -45,13 +49,15 @@ export default class DataDisplay extends React.Component {
 
     return (
       <div className='DataDisplay'>
-        <input className='DataDisplay-Filter' type='text' placeholder='' onChange={this.filterByValue.bind(this)} />
+        <input className='DataDisplay-Filter' type='text' placeholder=''
+               onChange={this.filterByValue} />
         {invalidJSPath && 'Invalid JSPath'}
         <pre>
           {JSON.stringify(filtered, null, 2)}
         </pre>
       </div>
     );
+
   }
 
 }

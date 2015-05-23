@@ -5,6 +5,7 @@ import path from 'path';
 import axios from 'axios';
 import Promise from 'bluebird';
 import React from 'react';
+import Baobab from 'baobab';
 
 import Structure from './Structure';
 import initData from './data';
@@ -14,12 +15,17 @@ import routes, {actions} from './routes';
 import marshall from './marshall';
 import settings from './settings';
 
+import {root} from 'baobab-react/higher-order';
+
 const debug = require('debug')('rjanko:renderApp');
 
 function renderHtml(res, data, webpackAssets) {
-  const cursor = data.cursor();
-  const markup = React.renderToString(<Layout data={cursor} />);
-  const html = React.renderToStaticMarkup(<Html webpackAssets={webpackAssets} markup={markup} state={marshall.stringify(cursor.deref())} />);
+  const BaobabInjectedLayout = root(Layout, data);
+  const markup = React.renderToString(<BaobabInjectedLayout />);
+  const html = React.renderToStaticMarkup(
+      <Html webpackAssets={webpackAssets} markup={markup}
+            state={data} />
+  );
   res.send(`<!doctype html>\n${html}`);
 }
 
@@ -35,7 +41,9 @@ export default async function(req, res, next, webpackAssets) {
   //  headers: manifestRequestHeaders
   //});
 
-  const data = new Structure(initData, false);
+  const data = new Baobab(initData, {
+    syncwrite: true
+  });
 
   //data.setIn('user', manifestResponse.data.user);
 
@@ -43,13 +51,13 @@ export default async function(req, res, next, webpackAssets) {
     route = routes.getRoute('/404');
   }
 
-  data.setIn('route', {
+  data.set('route', {
     name: route.name,
     params: route.params,
     query: req.query
   });
 
-  data.setIn('env', {
+  data.set('env', {
     NODE_ENV: process.env.NODE_ENV
   });
 
@@ -62,7 +70,10 @@ export default async function(req, res, next, webpackAssets) {
   }).catch((e) => {
     //throw e;
     route = routes.getRoute('/500');
-    data.setIn('route', {name: route.name, params: route.params});
+    data.set('route', {
+      name: route.name,
+      params: route.params
+    });
     renderHtml(res, data, webpackAssets);
     next();
   });

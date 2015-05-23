@@ -34,7 +34,7 @@
     "babel-loader": "^5.1.3",
     "babel-runtime": "^5.4.7",
     "baobab": "^1.1.0",
-    "baobab-react": "^0.1.1",
+    "baobab-react": "git+https://github.com/kompot/baobab-react.git",
     "bluebird": "^2.9.25",
     "body-parser": "^1.12.4",
     "classnames": "^2.1.1",

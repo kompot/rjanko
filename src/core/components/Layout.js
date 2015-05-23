@@ -14,7 +14,7 @@ const pages = {
 
   admin(data, params, query) {
     return <div data={data} params={params} query={query}>
-      <Login form={data.cursor(['admin', 'loginForm'])} />
+      <Login form={data.select(['admin', 'loginForm'])} />
     </div>;
   },
 
@@ -29,24 +29,26 @@ const pages = {
 };
 
 
-export default class Layout extends Component {
+export default class Layout extends React.Component {
 
-  renderLoaded({data}) {
-    const pageName = data.cursor(['route', 'name']).deref();
-    const params = data.cursor(['route', 'params']).deref() &&
-        data.cursor(['route', 'params']).deref().toJS();
-    const query = data.cursor(['route', 'query']).deref() &&
-        data.cursor(['route', 'query']).deref().toJS();
+  render() {
     return (
-        <div className='Layout'>
-          <h1>{data.cursor(['header', 'title']).deref()}</h1>
-          <h2>
-            <Link name='home'>home</Link> | <Link name='admin'>admin</Link> | <Link href='/non-existing-link'>non existing</Link>
-          </h2>
-          {pages[pageName](data, params, query)}
-          <footer>footer</footer>
-          <DataDisplay data={data} />
-        </div>
+      <div className='Layout'>
+        layout
+        <Login />
+        {/*
+        <h1>{data.select(['header', 'title']).get()}</h1>
+        <h2>
+          <Link name='home'>home</Link> |
+          <Link name='admin'>admin</Link> |
+          <Link href='/non-existing-link'>non existing</Link>
+        </h2>
+        {pages[pageName](data, params, query)}
+        <footer>footer</footer>
+
+         */}
+        <DataDisplay />
+      </div>
     );
   }
 
