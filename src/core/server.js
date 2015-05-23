@@ -1,11 +1,8 @@
-import fs from 'fs'
 import http from 'http';
 import path from 'path';
 
 import axios from 'axios';
 import express from 'express';
-import Promise from 'bluebird';
-import React from 'react';
 import SocketIoServer from './SocketIoServer';
 
 const debug = require('debug')('rjanko:server.dev');
@@ -17,7 +14,7 @@ import renderApp from './renderApp';
 const readWebpackBuildStats = (req) => {
   // TODO do not read on every request in prod mode!
   if (process.env.NODE_ENV === 'production') {
-    return axios.get(req.protocol + '://' + req.get('host') +'/build/_stats.json');
+    return axios.get(req.protocol + '://' + req.get('host') + '/build/_stats.json');
   } else {
     return axios.get('http://127.0.0.1:3001/build/_stats.json');
   }

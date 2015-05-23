@@ -69,10 +69,9 @@ async function createProjectDirOrThrowIfExists(name) {
       await createDir(name);
       debug(`Project '${name}' created`);
       return true;
-    } else {
-      error(`Unknown error while creating project`);
-      return false;
     }
+    error(`Unknown error while creating project`);
+    return false;
   }
 }
 

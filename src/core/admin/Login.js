@@ -1,8 +1,4 @@
-import React from 'react';
-import axios from 'axios';
 import {branch} from 'baobab-react/decorators';
-import PropTypes from 'baobab-react/prop-types';
-import Actions from '../actions';
 
 import {Component} from '../components/component';
 
@@ -16,7 +12,7 @@ export default class Login extends Component {
 
   login = () => {
     const {username, password} = this.props;
-    //axios.post('/api/login', d);
+    // axios.post('/api/login', d);
     this.actions.admin.login({username, password});
   };
 
@@ -42,7 +38,7 @@ export default class Login extends Component {
         </dl>
         <button onClick={this.login}>login</button>
       </div>
-    )
+    );
   }
 
 }

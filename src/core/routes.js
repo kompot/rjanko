@@ -1,8 +1,5 @@
-import api from './api';
-import Promise from 'bluebird';
 import Routr from 'routr';
-
-const debug = require('debug')('rjanko:routes');
+import _ from 'lodash';
 
 const routes = {
 
@@ -26,12 +23,12 @@ const routes = {
 
 const _actions = {};
 
-for (let route in routes) {
+_.forOwn(routes, (route) => {
   routes[route].method = 'get';
   if (routes[route].action) {
     _actions[route] = routes[route].action;
   }
-}
+});
 
 export const actions = _actions;
 

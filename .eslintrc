@@ -1,5 +1,6 @@
 {
   "parser": "babel-eslint",
+  "extends": "eslint-config-airbnb",
   "env": {
     "browser": true,
     "node": true
@@ -9,41 +10,5 @@
   ],
   "ecmaFeatures": {
     "jsx": true
-  },
-  "rules": {
-    "no-multi-spaces": 0,
-    "quotes": "single",
-    "react/display-name": 1,
-    "react/jsx-boolean-value": 1,
-    "react/jsx-quotes": 1,
-    "react/jsx-no-undef": 1,
-    "react/jsx-sort-props": 1,
-    "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1,
-    "react/no-did-mount-set-state": 1,
-    "react/no-did-update-set-state": 1,
-    "react/no-multi-comp": 1,
-    "react/no-unknown-property": 1,
-    "react/prop-types": 1,
-    "react/react-in-jsx-scope": 1,
-    "react/self-closing-comp": 1,
-    "react/wrap-multilines": 1,
-    "indent": [2, 2],
-    "brace-style": [2, "1tbs"],
-    "comma-style": [2, "last"],
-    "default-case": 2,
-    "func-style": [2, "declaration"],
-    "guard-for-in": 2,
-    "no-floating-decimal": 2,
-    "no-nested-ternary": 2,
-    "no-undefined": 2,
-    "radix": 2,
-    "space-after-function-name": [0, "never"],
-    "space-after-keywords": [2, "always"],
-    "space-before-blocks": 2,
-    "spaced-line-comment": [2, "always", { "exceptions": ["-"]}],
-    "strict": 0,
-    "valid-jsdoc": [2, { "prefer": { "return": "returns"}}],
-    "wrap-iife": 2
   }
 }

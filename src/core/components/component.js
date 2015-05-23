@@ -1,9 +1,6 @@
 import React from 'react';
-import _ from 'lodash';
 import classnames from 'classnames';
 import queryString from 'query-string';
-import debug from 'debug';
-import {branch} from 'baobab-react/decorators';
 import PropTypes from 'baobab-react/prop-types';
 
 import routes from '../routes';
@@ -35,7 +32,7 @@ export class Component extends React.Component {
     return <div>renderLoaded not implemented</div>;
   }
 
-  isLoaded({data}) {
+  isLoaded() {
     //if (data instanceof Reference) {
     //  const dataCursor = data.cursor(this.getDataPath());
     //  if (typeof dataCursor.deref() === 'undefined') {
