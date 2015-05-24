@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {Component} from './component';
 import DataDisplay from './DataDisplay';
 import Login from '../admin/Login';
-import Link from './Link';
 
 const pages = {
 
@@ -26,7 +24,6 @@ const pages = {
   }
 
 };
-
 
 export default class Layout extends React.Component {
 

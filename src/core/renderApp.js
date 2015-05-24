@@ -1,8 +1,3 @@
-import fs from 'fs'
-import http from 'http';
-import path from 'path';
-
-import axios from 'axios';
 import Promise from 'bluebird';
 import React from 'react';
 import Baobab from 'baobab';
@@ -11,11 +6,8 @@ import initData from './data';
 import Html from './components/Html';
 import Layout from './components/Layout';
 import routes, {actions} from './routes';
-import settings from './settings';
 
 import {root} from 'baobab-react/higher-order';
-
-const debug = require('debug')('rjanko:renderApp');
 
 function renderHtml(res, data, webpackAssets) {
   const BaobabInjectedLayout = root(Layout, data);
@@ -63,17 +55,18 @@ export default async function(req, res, next, webpackAssets) {
       ? actions[route.name](data, route.params, req.query)
       : new Promise(resolve => resolve());
 
-  actionPromise.then(function() {
-    renderHtml(res, data, webpackAssets);
-  }).catch((e) => {
-    //throw e;
-    route = routes.getRoute('/500');
-    data.set('route', {
-      name: route.name,
-      params: route.params
-    });
-    renderHtml(res, data, webpackAssets);
-    next();
+  actionPromise.then(() => renderHtml(res, data, webpackAssets)).catch((e) => {
+    if (process.env.NODE_ENV === 'production') {
+      route = routes.getRoute('/500');
+      data.set('route', {
+        name: route.name,
+        params: route.params
+      });
+      renderHtml(res, data, webpackAssets);
+      next();
+    } else {
+      throw e;
+    }
   });
 }
 

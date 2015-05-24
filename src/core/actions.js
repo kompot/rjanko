@@ -1,3 +1,6 @@
+// should put path here automagically, via webpack loader probably
+const dbg = require('./logging/debug')('src/core/actions');
+
 export default class Actions {
 
   constructor(tree) {
@@ -8,7 +11,7 @@ export default class Actions {
 
     admin: {
       login(payload) {
-        console.log('login action payload is', payload);
+        dbg('login action payload is', payload);
       }
     }
 

@@ -23,10 +23,10 @@ const routes = {
 
 const _actions = {};
 
-_.forOwn(routes, (route) => {
-  routes[route].method = 'get';
-  if (routes[route].action) {
-    _actions[route] = routes[route].action;
+_.forOwn(routes, (route, key) => {
+  route.method = 'get';
+  if (route.action) {
+    _actions[key] = route.action;
   }
 });
 

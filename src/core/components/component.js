@@ -6,6 +6,8 @@ import PropTypes from 'baobab-react/prop-types';
 import routes from '../routes';
 import Actions from '../actions';
 
+// should put path here automagically, via webpack loader probably
+const debug = require('../logging/debug')('src/core/components/component');
 
 export class Component extends React.Component {
 
@@ -46,7 +48,7 @@ export class Component extends React.Component {
     //if (!this.isLoaded(this.props, this.state)) {
     //  return this.renderLoading();
     //}
-    console.log('render component', this.constructor.name);
+    debug(this.constructor.name);
     return this.renderLoaded(this.props, this.state);
   }
 
