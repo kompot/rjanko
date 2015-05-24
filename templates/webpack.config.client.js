@@ -34,7 +34,6 @@ var config = {
       'debug',
       'jspath',
       'lodash',
-      'raf',
       'react',
       'routr',
       'socket.io-client',
@@ -54,7 +53,7 @@ var config = {
       // axios requires `es6-promise` polyfill so we replace it with bluebird
       'es6-promise': 'bluebird'
     },
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js']
   },
   bail: prod,
   node: {
@@ -62,42 +61,32 @@ var config = {
     __filename: true
   },
   module: {
-    loaders: [
-      {
+    loaders: [{
         test: /\.styl$/,
         loader:
           //  prod
           //? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
           //:
             'style!css!autoprefixer?' + autoPrefixerCfg + '!stylus'
-      },
-      {
+      }, {
         test: /\.css$/,
         loader:
           //  prod
           //? ExtractTextPlugin.extract('style', 'css')
           //:
             'style!css'
-      },
-      {
+      }, {
         test: /\.(ttf|woff|woff2|eot|gif|png|jpg|mp3|mp4|webm|ogg)(\?.+)?$/,
-        loader: 'file-loader?name=[sha512:hash:base36:7].[ext]'
-      },
-      {
+        loader: 'file?name=[sha512:hash:base36:7].[ext]'
+      }, {
         test: /src\/.+\.jsx?$/,
         exclude: /node_modules/,
         loaders: prod
-            // the optional 'runtime' transformer tells babel to require
-            // the runtime instead of inlining it.
-            ? [             'component-css?ext=styl', 'babel-loader?stage=0&optional=runtime']
-            : ['react-hot', 'component-css?ext=styl', 'babel-loader?stage=0&optional=runtime']
-      },
-      {
+            ? ['component-css?ext=styl', 'babel']
+            : ['react-hot', 'component-css?ext=styl', 'babel']
+      }, {
         test: /.*\.svg$/,
-        loaders: [
-          'file-loader',
-          'svgo-loader?' + svgoConfig
-        ]
+        loaders: ['file', 'svgo?' + svgoConfig]
       }
     ]
   },

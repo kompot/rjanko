@@ -9,6 +9,8 @@ export default class Html extends React.Component {
       <html>
         <head>
           <meta charSet='utf-8' />
+          <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700'
+                rel='stylesheet' type='text/css' />
           {webpackAssets['app.css'] &&
             <link href={webpackAssets['app.css']} rel='stylesheet' type='text/css'/>
           }

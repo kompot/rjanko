@@ -1,5 +1,5 @@
 import JSPath from 'jspath';
-import _ from 'lodash'
+import _ from 'lodash';
 import React from 'react';
 import {branch} from 'baobab-react/decorators';
 
@@ -52,7 +52,7 @@ export default class DataDisplay extends React.Component {
         <input className='DataDisplay-Filter' type='text' placeholder=''
                onChange={this.filterByValue} />
         {invalidJSPath && 'Invalid JSPath'}
-        <pre>
+        <pre className='DataDisplay-Data'>
           {JSON.stringify(filtered, null, 2)}
         </pre>
       </div>

@@ -17,7 +17,7 @@ var nodeModules = {
     })
     .forEach(function(mod) {
       nodeModules[mod] = 'commonjs ' + mod;
-    });
+});
 });
 
 var config = {
@@ -60,13 +60,9 @@ var config = {
         //exclude: /node_modules/,
         loaders:
             //prod
-            // the optional 'runtime' transformer tells babel to require
-            // the runtime instead of inlining it.
-            //?
-            //[             'babel-loader?stage=0&optional=runtime']
-            //:
-            //['monkey-hot', 'babel?stage=0&optional=runtime']
-            ['babel?stage=0&optional=runtime']
+            //? [              'babel']
+            //: ['monkey-hot', 'babel']
+            ['babel']
       },
       {
         test: /\.json$/,
