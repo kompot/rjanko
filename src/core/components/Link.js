@@ -1,5 +1,5 @@
 import React from 'react';
-import {Component, makePath, classnames} from './component';
+import {Component, makePath, classnames} from './Component';
 import routes from '../routes';
 
 export default class Link extends Component {

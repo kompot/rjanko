@@ -9,7 +9,7 @@ import Actions from '../actions';
 // should put path here automagically, via webpack loader probably
 const debug = require('../logging/debug')('src/core/components/Component');
 
-export default class Component extends React.Component {
+class Component extends React.Component {
 
   static contextTypes = {
     tree: PropTypes.baobab,
@@ -70,4 +70,4 @@ function navigateTo(url) {
   return routes.navigateTo(url);
 }
 
-export {classnames, makePath, getRoute, navigateTo};
+export {Component, classnames, makePath, getRoute, navigateTo};
