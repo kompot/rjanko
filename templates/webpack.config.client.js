@@ -78,7 +78,7 @@ var config = {
         test: /\.(ttf|woff|woff2|eot|gif|png|jpg|mp3|mp4|webm|ogg)(\?.+)?$/,
         loader: 'file?name=[sha512:hash:base36:7].[ext]'
       }, {
-        test: /src\/.+\.jsx?$/,
+        test: /src\/.+\.js$/,
         exclude: /node_modules/,
         loaders: prod
             ? ['component-css?ext=styl', 'babel']
