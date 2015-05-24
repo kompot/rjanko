@@ -7,9 +7,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default function(filename, prefix = '') {
   const splt = filename.split('/');
-  const index = _.findIndex(splt, (elem) => elem === 'src');
+  // TODO describe strategy somewhere? or just accept everything?
+  const index = _.findIndex(splt, (elem) => elem === 'src' || elem === 'lib');
   if (index === -1) {
-    throw new Error(`Using debug outside of src directory is not allowed.
+    throw new Error(`Using debug outside of 'src' or 'lib' directories is not allowed.
                      Used in ${filename}`);
   }
   const noSrc = splt.slice(index + 1);

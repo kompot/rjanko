@@ -25,9 +25,9 @@ const webpackServer = new WebpackDevServer(compiler, {
   }
 });
 
-webpackServer.listen(port, '0.0.0.0', function (err, result) {
+webpackServer.listen(port, '0.0.0.0', (err, result) => {
   if (err) {
-    debug(err);
+    debug(err, result);
   } else {
     debug(`Webpack dev server listening on ${port}`);
   }

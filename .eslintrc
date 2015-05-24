@@ -5,6 +5,8 @@
     "react"
   ],
   "rules": {
-    "spaced-line-comment": 0
+    "spaced-line-comment": 0,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1
   }
 }

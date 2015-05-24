@@ -13,7 +13,7 @@ program
   .command(`${commands.create} [name]`)
   .description('scaffold new project')
   .action((name) => {
-    console.log('create project %s', name);
+    process.stdout.write('create project %s', name);
     require(`./actions/${commands.create}.js`)({name});
   });
 
@@ -21,7 +21,7 @@ program
   .command(`${commands.init}`)
   .description('scaffold new project in current directory')
   .action(() => {
-    console.log('init project');
+    process.stdout.write('init project');
     require(`./actions/${commands.init}.js`)();
   });
 
@@ -29,7 +29,7 @@ program
   .command(`${commands.dev}`)
   .description('start development mode')
   .action(() => {
-    console.log('Starting development mode');
+    process.stdout.write('Starting development mode1');
     require(`./actions/${commands.dev}.js`)();
   });
 
@@ -37,7 +37,7 @@ program
   .command(`${commands.prod}`)
   .description('start production mode')
   .action(() => {
-    console.log('Starting production mode');
+    process.stdout.write('Starting production mode');
     require(`./actions/${commands.prod}.js`)();
   });
 

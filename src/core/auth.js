@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 
 import User from '../models/User';
-const debug = require('../core/logging/debug')(__filename);
 
 export default function(expressApp) {
   expressApp.use(cookieParser());
@@ -25,7 +24,7 @@ export default function(expressApp) {
   // serialize user ID to session
   passport.serializeUser((user, done) => done(null, user.id));
 
-  passport.deserializeUser((id, done) => {
+  passport.deserializeUser((id) => {
     return new User(id);
   });
 

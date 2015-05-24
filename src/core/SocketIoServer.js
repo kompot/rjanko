@@ -1,6 +1,5 @@
 import settings from './settings';
 import axios from 'axios';
-const debug = require('./logging/debug')(__filename);
 const derror = require('./logging/debug')(__filename, 'error');
 
 export default class SocketIoServer {
@@ -23,7 +22,7 @@ export default class SocketIoServer {
           'content-type': 'application/json',
           cookie: payload.cookies
         },
-        transformResponse: [function(responseData) {
+        transformResponse: [(responseData) => {
           try {
             return JSON.parse(responseData);
           } catch(e) {

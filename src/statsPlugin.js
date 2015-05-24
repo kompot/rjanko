@@ -3,7 +3,6 @@ import path from 'path';
 export default class StatsPlugin {
 
   constructor() {
-    super();
     this.assets = {};
   }
 
@@ -15,22 +14,24 @@ export default class StatsPlugin {
 
       const assets = {};
       const filterFn = (val) => path.extname(val) !== '.map';
-      for (const chunk in webpackStatsJson.assetsByChunkName) {
-        const chunkValue = webpackStatsJson.assetsByChunkName[chunk];
+      const forEachFn = (chunk, val) => {
+        let newVal = val;
+        if (compiler.options.output.publicPath) {
+          newVal = compiler.options.output.publicPath + val;
+        }
+        if (!assets[chunk + path.extname(val)]) {
+          assets[chunk + path.extname(val)] = newVal;
+        }
+      };
+      Object.keys(webpackStatsJson.assetsByChunkName).map((chunk) => {
+        let chunkValue = webpackStatsJson.assetsByChunkName[chunk];
         if (!(chunkValue instanceof Array)) {
           chunkValue = [chunkValue];
         }
         chunkValue
             .filter(filterFn)
-            .forEach((val) => {
-              if (compiler.options.output.publicPath) {
-                val = compiler.options.output.publicPath + val;
-              }
-              if (!assets[chunk + path.extname(val)]) {
-                assets[chunk + path.extname(val)] = val;
-              }
-            });
-      }
+            .forEach(forEachFn.bind(this, chunk));
+      });
 
       self.assets = assets;
 

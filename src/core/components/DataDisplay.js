@@ -40,7 +40,7 @@ export default class DataDisplay extends React.Component {
       try {
         filtered = JSPath.apply(this.state.query, filtered);
         if (_.isEmpty(filtered)) {
-          filtered = data;
+          filtered = this.props.data;
         }
       } catch (e) {
         invalidJSPath = true;
@@ -57,7 +57,6 @@ export default class DataDisplay extends React.Component {
         </pre>
       </div>
     );
-
   }
 
 }
