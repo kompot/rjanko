@@ -13,7 +13,6 @@ export default class Login extends Component {
 
   login = () => {
     const {username, password} = this.props;
-    // axios.post('/api/login', d);
     this.actions.admin.login({username, password});
   };
 

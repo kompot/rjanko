@@ -45,6 +45,7 @@ expressApp.use(bodyParser.urlencoded({
 }));
 expressApp.use(bodyParser.json());
 expressApp.use(expressSession({
+  // TODO replace with an ENV variable
   secret: 'sessionSuperVerySecret',
   resave: true,
   saveUninitialized: true
@@ -57,27 +58,24 @@ passport.serializeUser((user, done) => done(null, user.id));
 
 import User from '../models/User';
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   return new User(id);
 });
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    debug(`_____username`, username, `password`, password);
     if (username === 'admin' && password === '12345') {
-      return done(null, {id: 1});
-    } else {
-      return done(null, false, {
-        message: 'Incorrect username or password.'
-      });
+      return done(null, {id: 1, username: 'admin'});
     }
+    return done(null, false, {
+      message: 'Incorrect username or password.'
+    });
   }
 ));
 
-expressApp.post('/api/login', passport.authenticate('local', {
-  successRedirect: '/loginSuccess',
-  failureRedirect: '/loginFailure'
-}));
+expressApp.post('/api/login', passport.authenticate('local'), (req, res) => {
+  res.status(200).send(req.user);
+});
 /**
  * Passport js related end
  */

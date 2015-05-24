@@ -42,43 +42,42 @@ class Api {
 
   _request(method, url, data = {}) {
     if (this.socketConn) {
-      debug(`socket.io ${method} ${url}`);
+      debug(`socket ${method} ${url}`);
       let requestId = this.requestCounter++;
       let responsePromise = new Promise((resolve, reject) => {
-        this.resolvers[requestId] = function(response) {
+        this.resolvers[requestId] = function resolveApi(response) {
           debug(`${url} resolve`, response.data);
           resolve(response);
         };
-        this.rejectors[requestId] = function(response) {
+        this.rejectors[requestId] = function rejectApi(response) {
           debug(`${url} reject`, response);
           reject(response);
         };
       }).cancellable().timeout(maxSocketTimeout);
       this.socketConn.emit('apiRequest', {requestId, method, url, data, cookies: document.cookie});
       return responsePromise;
-    } else {
-      debug(`axios ${method} ${url}`);
-      return axios[method](`${settings.apiHost()}${url}`, data);
     }
+    debug(`http ${method} ${url}`);
+    return axios[method](`${settings.apiHost()}${url}`, data);
   }
 
-  post(url, data = {}) {
-    return this._request('post', url, data);
+  post(url, payload = {}) {
+    return this._request('post', url, payload);
   }
 
-  get(url, data = {}) {
-    return this._request('get', url, data);
+  get(url, payload = {}) {
+    return this._request('get', url, payload);
   }
 
   news() {
     return this.get(`/api/news?offset=0&limit=20`);
   }
 
-  signin({username, password}) {
-    return this.post('/api/signin', {username, password})
+  login({username, password}) {
+    return this.post('/api/login', {username, password});
   }
 
-  signout() {
+  logout() {
     return this.post('/api/signout');
   }
 

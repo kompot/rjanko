@@ -1,3 +1,5 @@
+import Api from './api';
+
 const debug = require('./logging/debug')(__filename);
 
 export default class Actions {
@@ -9,8 +11,10 @@ export default class Actions {
   actions = {
 
     admin: {
-      login(payload) {
-        debug('login action payload is', payload);
+      login: async ({username, password}) => {
+        debug(`login action payload is ${username} ${password}`);
+        const loginResult = await Api.login({username, password});
+        this.tree.set('user', loginResult.data);
       }
     }
 

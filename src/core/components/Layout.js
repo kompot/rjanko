@@ -2,6 +2,7 @@ import React from 'react';
 
 import DataDisplay from './DataDisplay';
 import Login from '../admin/Login';
+import UserInfo from '../admin/UserInfo';
 
 const pages = {
 
@@ -31,6 +32,7 @@ export default class Layout extends React.Component {
     return (
       <div className='Layout'>
         layout
+        <UserInfo />
         <Login />
         {/*
         <h1>{data.select(['header', 'title']).get()}</h1>
