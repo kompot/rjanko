@@ -9,9 +9,9 @@ export default class Link extends Component {
     this.state = {
       selectedCurrent: false,
       selectedParent: false
-    }
+    };
   }
-  
+
   _getUrl() {
     return this.props.href || makePath(this.props.name, this.props.params || {}, this.props.query || {});
   }
@@ -50,4 +50,4 @@ export default class Link extends Component {
     );
   }
 
-};
+}

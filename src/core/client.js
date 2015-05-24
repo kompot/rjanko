@@ -1,5 +1,5 @@
 import React from 'react';
-import Promise from 'bluebird';
+import _ from 'lodash';
 import History from 'flux-router-component/lib/History';
 import queryString from 'query-string';
 import Baobab from 'baobab';
@@ -10,7 +10,7 @@ import routes, {actions} from './routes';
 
 const history = new History();
 
-const debug = require('./logging/debug')(__filename);
+const derror = require('./logging/debug')(__filename, 'error');
 
 const data = new Baobab(window._app_state_, {
   syncwrite: true
@@ -22,14 +22,13 @@ function setRouteTo(route) {
     params: route.params,
     query: route.query
   };
-  var routeCursor = data.select('route');
-  if (_.isEqual(newRoute, routeCursor.get())) {
+  if (_.isEqual(newRoute, data.select('route').get())) {
     return;
   }
   data.set('route', newRoute);
 }
 
-routes.navigateTo = function(url, fromHistory = false) {
+routes.navigateTo = function navigateTo(url, fromHistory = false) {
   if (!fromHistory) {
     history.pushState({}, 'no title', url);
   }
@@ -44,23 +43,19 @@ routes.navigateTo = function(url, fromHistory = false) {
   setRouteTo(route);
   if (actions[route.name]) {
     actions[route.name](data, route.params, route.query)
-        .catch(function(error) {
-          console.error(`route ${route.name} failed, redirecting to 500`);
-          console.log(error);
+        .catch(function catchActionError(error) {
+          derror(`route ${route.name} failed, redirecting to 500`);
+          derror(error);
           route = routes.getRoute('/500');
           setRouteTo(route);
         });
   }
 };
 
-history.on(() => {
-  routes.navigateTo(history.getUrl(), true);
-});
-
-const container = document.getElementById('app');
+history.on(() => routes.navigateTo(history.getUrl(), true));
 
 function render() {
   const BaobabInjectedLayout = root(Layout, data);
-  React.render(<BaobabInjectedLayout />, container);
+  React.render(<BaobabInjectedLayout />, document.getElementById('app'));
 }
 render();
