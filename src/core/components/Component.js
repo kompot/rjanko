@@ -6,8 +6,7 @@ import PropTypes from 'baobab-react/prop-types';
 import routes from '../routes';
 import Actions from '../actions';
 
-// should put path here automagically, via webpack loader probably
-const debug = require('../logging/debug')('src/core/components/Component');
+const debug = require('../logging/debug')(__filename);
 
 class Component extends React.Component {
 

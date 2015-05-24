@@ -1,16 +1,16 @@
-var os = require('os');
-var path = require('path');
-var webpack = require('webpack');
-var StatsPlugin = require('rjanko/lib/statsPlugin');
+const os = require('os');
+const path = require('path');
+const webpack = require('webpack');
+const StatsPlugin = require('rjanko/lib/statsPlugin');
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var prod = process.env.NODE_ENV === 'production';
+const prod = process.env.NODE_ENV === 'production';
 
-var autoPrefixerCfg = JSON.stringify({
+const autoPrefixerCfg = JSON.stringify({
   browsers: [
-    "last 1 versions",
-    "IE 11",
-    "Opera 12.1"
+    'last 1 versions',
+    'IE 11',
+    'Opera 12.1'
   ]
 });
 
@@ -57,6 +57,10 @@ var config = {
     extensions: ['', '.js', '.jsx']
   },
   bail: prod,
+  node: {
+    // used to get real filename for `debug`
+    __filename: true
+  },
   module: {
     loaders: [
       {
@@ -118,19 +122,17 @@ var config = {
 };
 
 if (prod) {
-
   config.devtool = 'sourcemap';
-  config.output.devtoolModuleFilenameTemplate = "file://[resource-path]";
-  config.output.devtoolFallbackModuleFilenameTemplate = "file://[resource-path]?[hash]";
+  config.output.devtoolModuleFilenameTemplate = 'file://[resource-path]';
+  config.output.devtoolFallbackModuleFilenameTemplate = 'file://[resource-path]?[hash]';
 
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({comments: /a^/, compress: {warnings: false}})
   );
-
 } else {
   config.devtool = 'eval';
 
-  for (var key in config.entry) {
+  for (const key in config.entry) {
     if (key !== 'vendor') {
       config.entry[key].unshift(
         'webpack-dev-server/client?http://127.0.0.1:3001',

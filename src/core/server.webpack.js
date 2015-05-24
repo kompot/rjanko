@@ -3,7 +3,7 @@ import path from 'path';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 
-const debug = require('debug')('rjanko:server.webpack');
+const debug = require('./logging/debug')(__filename);
 const port = 3001;
 const compiler = webpack(require(path.join(
     process.cwd(),

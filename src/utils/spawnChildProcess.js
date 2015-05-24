@@ -1,7 +1,6 @@
 import childProcess from 'child_process';
 
-import dbg from 'debug';
-const debug = dbg('rjanko:utils:spawnChildProcess');
+const debug = require('../logging/debug')(__filename);
 
 export default function(cmd, args, options, sync = false) {
   debug(`Will spawn child process ${cmd} ${args} ${JSON.stringify(options)} ${sync}`);

@@ -6,9 +6,8 @@ import _ from 'lodash';
 import path from 'path';
 import spawnChildProcess from '../utils/spawnChildProcess';
 
-import dbg from 'debug';
-const debug = dbg('rjanko:actions:create');
-const error = dbg('rjanko:error:actions:create');
+const debug = require('../core/logging/debug')(__filename);
+const error = require('../core/logging/debug')(__filename, 'error');
 
 async function dirExists(dir) {
   return await fs.statAsync(dir);

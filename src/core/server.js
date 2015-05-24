@@ -5,7 +5,7 @@ import axios from 'axios';
 import express from 'express';
 import SocketIoServer from './SocketIoServer';
 
-const debug = require('debug')('rjanko:server.dev');
+const debug = require('../core/logging/debug')(__filename);
 const expressApp = express();
 const statsJsonPath = path.join(process.cwd(), 'build', '_stats.json');
 
@@ -62,7 +62,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
+  (username, password, done) => {
     debug(`_____username`, username, `password`, password);
     if (username === 'admin' && password === '12345') {
       return done(null, {id: 1});
@@ -83,29 +83,24 @@ expressApp.post('/api/login', passport.authenticate('local', {
  */
 
 
-expressApp.use(async function(req, res, next) {
+expressApp.use(async (req, res, next) => {
   const webpackAssets = await readWebpackBuildStats(req);
   renderApp(req, res, next, webpackAssets.data).catch(next);
 });
 
-expressApp.use(function(err, req, res, next) {
+expressApp.use((err, req, res, next) => {
   if (err) {
     debug(err.stack);
     res.send('<html><body><pre>' + err.stack + '</pre></body></html>');
   }
 });
 
-
-
-
-
-
 const port = process.env.PORT || 3000;
 const server = http.Server(expressApp);
 
 new SocketIoServer(server);
 
-server.listen(port, function(err, result) {
+server.listen(port, (err, result) => {
   if (err) {
     debug(err);
   }

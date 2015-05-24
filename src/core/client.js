@@ -10,7 +10,7 @@ import routes, {actions} from './routes';
 
 const history = new History();
 
-const debug = require('debug')('rjanko:client');
+const debug = require('./logging/debug')(__filename);
 
 const data = new Baobab(window._app_state_, {
   syncwrite: true

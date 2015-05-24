@@ -1,11 +1,10 @@
 import axios from 'axios';
-import socketIO from 'socket.io-client'
+import socketIO from 'socket.io-client';
 import Promise from 'bluebird';
-import {TimeoutError, CancellationError} from 'bluebird/js/main/errors';
 
 import settings from './settings';
 
-const debug = require('debug')('rjanko:api');
+const debug = require('./logging/debug')(__filename);
 
 const maxSocketTimeout = 8192;
 

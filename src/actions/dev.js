@@ -1,5 +1,5 @@
 import spawnChildProcess from '../utils/spawnChildProcess';
-const debug = require('debug')('rjanko:actions:dev');
+const debug = require('../core/logging/debug')(__filename);
 
 export default function() {
   debug(`Starting development server`);
