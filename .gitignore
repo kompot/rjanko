@@ -34,5 +34,9 @@ lib
 # isparta code coverage
 coverage
 
+templates/forego
 templates/build
+templates/server.js
+templates/server.js.map
 templates/_records.json
+templates/_records.server.json
