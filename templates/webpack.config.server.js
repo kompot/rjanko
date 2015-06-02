@@ -38,7 +38,8 @@ var config = {
       // axios requires `es6-promise` polyfill so we replace it with bluebird
       'es6-promise': 'bluebird'
     },
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    moduleDirectories: ['src', 'node_modules']
   },
   bail: prod,
   //watch: 'true',
@@ -52,8 +53,7 @@ var config = {
     __dirname: true
   },
   module: {
-    loaders: [
-      {
+    loaders: [{
         //test: /src\/.+\.js?$/,
         test: /\.js$/,
         include: /src/,
@@ -106,8 +106,8 @@ if (prod) {
   //config.devtool = 'eval';
   //config.devtool = ' cheap-module-inline-source-map';
   //config.devtool = 'cheap-source-map';
-  //config.devtool = 'source-map';
-  //config.debug = true;
+  config.devtool = 'source-map';
+  config.debug = true;
 
   for (var key in config.entry) {
     if (key !== 'vendor') {

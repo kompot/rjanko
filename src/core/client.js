@@ -8,6 +8,8 @@ import {root} from 'baobab-react/higher-order';
 import Layout from './components/Layout';
 import routes, {actions} from './routes';
 
+require('react-widgets/lib/less/react-widgets.less');
+
 const history = new History();
 
 const derror = require('./logging/debug')(__filename, 'error');

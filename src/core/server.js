@@ -5,6 +5,8 @@ import axios from 'axios';
 import express from 'express';
 import SocketIoServer from './SocketIoServer';
 
+require('source-map-support').install();
+
 const debug = require('../core/logging/debug')(__filename);
 const expressApp = express();
 //const statsJsonPath = path.join(process.cwd(), 'build', '_stats.json');
@@ -29,6 +31,8 @@ if (process.env.NODE_ENV === 'production') {
 //});
 
 require('./auth')(expressApp);
+require('../store/mongodb/index.js');
+expressApp.use('/api', require('../store/mongodb/api.js'));
 
 expressApp.use(async (req, res, next) => {
   const webpackAssets = await readWebpackBuildStats(req);

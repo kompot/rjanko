@@ -4,8 +4,6 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 
-import User from '../models/User';
-
 export default function(expressApp) {
   expressApp.use(cookieParser());
   expressApp.use(bodyParser.urlencoded({
@@ -25,7 +23,9 @@ export default function(expressApp) {
   passport.serializeUser((user, done) => done(null, user.id));
 
   passport.deserializeUser((id) => {
-    return new User(id);
+    return {
+      userId: id
+    };
   });
 
   passport.use(new LocalStrategy((username, password, done) => {

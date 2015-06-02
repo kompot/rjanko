@@ -52,7 +52,8 @@ var config = {
       // axios requires `es6-promise` polyfill so we replace it with bluebird
       'es6-promise': 'bluebird'
     },
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    moduleDirectories: ['src', 'node_modules']
   },
   bail: prod,
   node: {
@@ -67,6 +68,13 @@ var config = {
           //? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
           //:
             'style!css!autoprefixer?' + autoPrefixerCfg + '!stylus'
+      }, {
+        test: /\.less$/,
+        loader:
+          //  prod
+          //? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
+          //:
+            'style!css!autoprefixer?' + autoPrefixerCfg + '!less'
       }, {
         test: /\.css$/,
         loader:
@@ -84,7 +92,7 @@ var config = {
             ? ['component-css?ext=styl', 'babel']
             : ['react-hot', 'component-css?ext=styl', 'babel']
       }, {
-        test: /.*\.svg$/,
+        test: /.*\.svg.*$/,
         loaders: ['file', 'svgo?' + svgoConfig]
       }
     ]

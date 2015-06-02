@@ -81,6 +81,10 @@ class Api {
     return this.post('/api/signout');
   }
 
+  groups({search}) {
+    return this.get(`/api/groups?search=${search}`);
+  }
+
 }
 
 export default new Api();

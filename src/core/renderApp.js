@@ -1,13 +1,14 @@
 import Promise from 'bluebird';
 import React from 'react';
 import Baobab from 'baobab';
+import {root} from 'baobab-react/higher-order';
 
 import initData from './data';
 import Html from './components/Html';
 import Layout from './components/Layout';
 import routes, {actions} from './routes';
 
-import {root} from 'baobab-react/higher-order';
+const debug = require('../core/logging/debug')(__filename);
 
 function renderHtml(res, data, webpackAssets) {
   const BaobabInjectedLayout = root(Layout, data);
