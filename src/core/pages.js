@@ -3,6 +3,7 @@ import Promise from 'bluebird';
 import {branch} from 'baobab-react/decorators';
 
 import {Component} from './components/Component';
+import Link from './components/Link';
 import Login from './admin/Login';
 import Api from './api.js';
 
@@ -52,7 +53,7 @@ class ListPage extends Component {
             </tr>
             {list[entity].map((item, i) => {
               return <tr>
-                <td>{i}</td>
+                <td><Link name={`admin${entity}Details`} params={{id: item._id}}>{i}</Link></td>
                 {Object.keys(models[entity].fields).map((field, j) => {
                   return <td style={{borderBottom: '1px solid #bbb'}}>
                     {JSON.stringify(item[field])}
@@ -68,12 +69,126 @@ class ListPage extends Component {
 
 }
 
+
+Form.addInputTypes(require('react-formal-inputs'));
+
 class DetailsPage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      model: {}
+    };
+  }
+
+  updateFormValue = (model) => {
+    this.setState({model});
+  };
+
+  colorOnChange = (v) => {
+    console.log('_______colorOnChange', v);
+  };
+
+  colorSearch = v => console.log('_______ colorSearch', v);
+
+  groupSearch = async (v) => {
+    console.log('_______ groupSearch before', v);
+    const result = await Api.groups({search: v});
+    this.setState({
+      groups: result.data
+    });
+    console.log('_______ groupSearch after', result.data);
+  };
+
+  saveForm = () => {
+    console.log('_________', this.state.model);
+  };
+
+  renderForm = (schema, parentFieldName = '') => {
+    return (
+      <div>
+        {Object.keys(schema.fields).map((field, i) => {
+          //console.log(`______ this.renderForm __ ${parentFieldName}${field}`);
+          if (schema.fields[field].fields) {
+            return (
+              <div style={{border: '1px solid violet', paddingLeft: '10px'}}>
+                {this.renderForm(schema.fields[field], 'name.')}
+              </div>
+            );
+          }
+          return (
+            <div style={{border: '1px solid red', paddingLeft: '10px'}}>
+              <div>{field}</div>
+              {!schema.fields[field].fields &&
+                <Form.Field name={`${parentFieldName}${field}`} />
+              }
+            </div>
+          )
+        })}
+      </div>
+    );
+  };
+
+  // <span>subfield {field}</span>
+  // this.renderForm(schema.fields[field])
+
   renderLoaded({entity}) {
+    console.log('=====', models[entity]);
     return (
       <div>
         DetailsPage {entity}
+        <hr />
+
+        <Form
+            schema={models[entity]}
+            value={this.state.model}
+            onChange={model => this.updateFormValue(model)}
+            >
+          {this.renderForm(models[entity])}
+        </Form>
+
+        {/*
+        <Form
+            schema={models[entity]}
+            value={this.state.model}
+            onChange={model => this.updateFormValue(model)}
+            >
+
+          <fieldset>
+            <legend>{entity}</legend>
+
+            <dl>
+              <dt><Form.Field name='name.first' /></dt>
+              <dd><Form.Message for='name.first' /></dd>
+              <dt><Form.Field name='name.last' /></dt>
+              <dd><Form.Message for='name.last' /></dd>
+              <dt><Form.Field name='dateOfBirth' /></dt>
+              <dd><Form.Message for='dateOfBirth' /></dd>
+              <dt>
+                <label>Favorite Color</label>
+                <Form.Field name='colorIds' type='multiselect'
+                            onSearch={this.colorSearch}
+                            defaultValue={['orange', 'red']}
+                            data={['orange', 'red', 'blue', 'purple']}
+                            onChange={this.colorOnChange} />
+              </dt>
+              <dd>
+                <Form.Message for='colorId'/>
+              </dd>
+              <dt>Groups</dt>
+              <dd>
+                <Form.Field name='groups' type='multiselect'
+                            valueField='id' textField='name'
+                            data={this.state.groups}
+                            onSearch={this.groupSearch} />
+              </dd>
+            </dl>
+
+          </fieldset>
+          <Form.Button onClick={this.saveForm} type='submit'>Submit</Form.Button>
+        </Form>
+         */}
+
       </div>
     );
   }
@@ -116,8 +231,6 @@ class UsersPage extends Component {
 
 
 
-Form.addInputTypes(require('react-formal-inputs'));
-
 class PersonsPage extends React.Component {
 
   constructor(props) {
@@ -130,7 +243,6 @@ class PersonsPage extends React.Component {
 
   updateFormValue = (model) => {
     this.setState({model});
-    console.log('_________model', model);
   };
 
   colorOnChange = (v) => {

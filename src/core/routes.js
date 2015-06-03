@@ -20,14 +20,6 @@ const routes = {
     path: '/admin/login'
   },
 
-  adminUsers: {
-    path: '/admin/user'
-  },
-
-  adminPersons: {
-    path: '/admin/persons'
-  },
-
   404: {
     path: '/404'
   },
@@ -49,7 +41,7 @@ models.map((model) => {
     }
   };
   routes[`admin${model}Details`] = {
-    path: `/a/${model}/details`,
+    path: `/a/${model}/details/:id`,
     action: async (data, params, query) => {
       //const users = await Api.get(`/api/${model.toLowerCase()}`);
       //data.set(model + 'List', users.data);
