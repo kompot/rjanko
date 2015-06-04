@@ -4,11 +4,11 @@ import Promise from 'bluebird';
 Promise.promisifyAll(mongoose);
 import express from 'express';
 
-const debug = require('../../core/logging/debug')(__filename);
+const debug = require('core/logging/debug')(__filename);
 
 const expressApp = express();
 
-const models = require('./viewable');
+const models = require('store/mongodb/viewable');
 
 Object.keys(models).map((key) => {
   //debug(`==================`, key, models[key]);

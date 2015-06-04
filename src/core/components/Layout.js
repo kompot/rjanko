@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DataDisplay from './DataDisplay';
-import UserInfo from '../admin/UserInfo';
-import Link from './Link';
-import {PageRouter} from '../pages';
+import DataDisplay from 'core/components/DataDisplay';
+import UserInfo from 'core/admin/UserInfo';
+import Link from 'core/components/Link';
+import {PageRouter} from 'core/pages';
 
 export default class Layout extends React.Component {
 

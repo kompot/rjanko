@@ -2,12 +2,12 @@ import React from 'react';
 import Promise from 'bluebird';
 import {branch} from 'baobab-react/decorators';
 
-import {Component} from './components/Component';
-import Link from './components/Link';
-import Login from './admin/Login';
-import Api from './api.js';
+import {Component} from 'core/components/Component';
+import Link from 'core/components/Link';
+import Login from 'core/admin/Login';
+import Api from 'core/api.js';
 
-const debug = require('./logging/debug')(__filename);
+const debug = require('core/logging/debug')(__filename);
 
 const pages = {
 
@@ -19,7 +19,7 @@ const pages = {
 
 };
 
-require('../models/viewable').map((model) => {
+require('models/viewable').map((model) => {
   pages[`admin${model}List`] = () => <ListPage entity={model} />;
   pages[`admin${model}Details`] = () => <DetailsPage entity={model} />;
 });
@@ -27,7 +27,7 @@ require('../models/viewable').map((model) => {
 const yup = require('yup');
 const Form = require('react-formal');
 
-import models from '../models';
+import models from 'models';
 
 @branch({
   cursors: {

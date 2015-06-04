@@ -3,8 +3,8 @@ import Promise from 'bluebird';
 Promise.promisifyAll(mongoose);
 import {User, UserSchema} from './User';
 
-const debug = require('../../core/logging/debug')(__filename);
-const derror = require('../../core/logging/debug')(__filename, 'error');
+const debug = require('core/logging/debug')(__filename);
+const derror = require('core/logging/debug')(__filename, 'error');
 
 mongoose.connect('mongodb://localhost/rjanko');
 

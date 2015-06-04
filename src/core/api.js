@@ -2,9 +2,9 @@ import axios from 'axios';
 import socketIO from 'socket.io-client';
 import Promise from 'bluebird';
 
-import settings from './settings';
+import settings from 'core/settings';
 
-const debug = require('./logging/debug')(__filename);
+const debug = require('core/logging/debug')(__filename);
 
 const maxSocketTimeout = 8192;
 

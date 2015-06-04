@@ -1,6 +1,6 @@
-import spawnChildProcess from '../utils/spawnChildProcess';
+import spawnChildProcess from 'utils/spawnChildProcess';
 
-const debug = require('../core/logging/debug')(__filename);
+const debug = require('core/logging/debug')(__filename);
 
 export default function() {
   debug(`Starting production server`);

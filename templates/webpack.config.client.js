@@ -53,7 +53,7 @@ var config = {
       'es6-promise': 'bluebird'
     },
     extensions: ['', '.js'],
-    moduleDirectories: ['src', 'node_modules']
+    modulesDirectories: ['src', 'node_modules']
   },
   bail: prod,
   node: {

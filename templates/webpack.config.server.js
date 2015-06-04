@@ -17,7 +17,7 @@ var nodeModules = {
     })
     .forEach(function(mod) {
       nodeModules[mod] = 'commonjs ' + mod;
-});
+    });
 });
 
 var config = {
@@ -39,7 +39,7 @@ var config = {
       'es6-promise': 'bluebird'
     },
     extensions: ['', '.js'],
-    moduleDirectories: ['src', 'node_modules']
+    modulesDirectories: ['src', 'node_modules']
   },
   bail: prod,
   //watch: 'true',

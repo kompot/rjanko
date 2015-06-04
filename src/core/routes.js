@@ -2,9 +2,9 @@ import React from 'react';
 import Routr from 'routr';
 import _ from 'lodash';
 
-const debug = require('./logging/debug')(__filename);
-import {Component} from './components/Component';
-import Api from './api.js';
+const debug = require('core/logging/debug')(__filename);
+import {Component} from 'core/components/Component';
+import Api from 'core/api.js';
 
 const routes = {
 

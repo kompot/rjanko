@@ -1,6 +1,7 @@
 import React from 'react';
-import {Component, makePath, classnames} from './Component';
-import routes from '../routes';
+
+import {Component, makePath, classnames} from 'core/components/Component';
+import routes from 'core/routes';
 
 export default class Link extends React.Component {
 

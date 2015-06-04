@@ -3,15 +3,15 @@ import path from 'path';
 
 import axios from 'axios';
 import express from 'express';
-import SocketIoServer from './SocketIoServer';
+import SocketIoServer from 'core/SocketIoServer';
 
 require('source-map-support').install();
 
-const debug = require('../core/logging/debug')(__filename);
+const debug = require('core/logging/debug')(__filename);
 const expressApp = express();
 //const statsJsonPath = path.join(process.cwd(), 'build', '_stats.json');
 
-import renderApp from './renderApp';
+import renderApp from 'core/renderApp';
 
 const readWebpackBuildStats = (req) => {
   // TODO do not read on every request in prod mode!
@@ -30,9 +30,9 @@ if (process.env.NODE_ENV === 'production') {
 //  res.send(webpackAssets);
 //});
 
-require('./auth')(expressApp);
-require('../store/mongodb/index.js');
-expressApp.use('/api', require('../store/mongodb/api.js'));
+require('core/auth')(expressApp);
+require('store/mongodb/index.js');
+expressApp.use('/api', require('store/mongodb/api.js'));
 
 expressApp.use(async (req, res, next) => {
   const webpackAssets = await readWebpackBuildStats(req);

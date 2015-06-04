@@ -1,6 +1,6 @@
-import Api from './api';
+import Api from 'core/api';
 
-const debug = require('./logging/debug')(__filename);
+const debug = require('core/logging/debug')(__filename);
 
 export default class Actions {
 

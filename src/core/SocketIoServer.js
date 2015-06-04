@@ -1,6 +1,6 @@
 import settings from './settings';
 import axios from 'axios';
-const derror = require('./logging/debug')(__filename, 'error');
+const derror = require('core/logging/debug')(__filename, 'error');
 
 export default class SocketIoServer {
 
