@@ -7,6 +7,8 @@ import Link from './components/Link';
 import Login from './admin/Login';
 import Api from './api.js';
 
+const debug = require('./logging/debug')(__filename);
+
 const pages = {
 
   adminLogin: () => <LoginPage />,
@@ -108,22 +110,20 @@ class DetailsPage extends Component {
     return (
       <div>
         {Object.keys(schema.fields).map((field, i) => {
-          //console.log(`______ this.renderForm __ ${parentFieldName}${field}`);
           if (schema.fields[field].fields) {
             return (
-              <div style={{border: '1px solid violet', paddingLeft: '10px'}}>
+              <div style={{border: '1px solid green', paddingLeft: '10px'}}>
                 {this.renderForm(schema.fields[field], 'name.')}
               </div>
             );
           }
           return (
             <div style={{border: '1px solid red', paddingLeft: '10px'}}>
-              <div>{field}</div>
-              {!schema.fields[field].fields &&
-                <Form.Field name={`${parentFieldName}${field}`} />
-              }
+              <div>{field} - {schema.fields[field].label()}</div>
+              <Form.Field name={`${parentFieldName}${field}`} />
+              <Form.Message for={`${parentFieldName}${field}`} />
             </div>
-          )
+          );
         })}
       </div>
     );
@@ -133,7 +133,6 @@ class DetailsPage extends Component {
   // this.renderForm(schema.fields[field])
 
   renderLoaded({entity}) {
-    console.log('=====', models[entity]);
     return (
       <div>
         DetailsPage {entity}

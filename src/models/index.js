@@ -1,5 +1,12 @@
 import yup from 'yup';
 
+const debug = require('../core/logging/debug')(__filename);
+
+yup.addMethod(yup.mixed, 'label', function(l) {
+  this.label = () => l;
+  return this;
+});
+
 const Group = yup.object({
   id: yup.number().required(),
   name: yup.string().required('Group name is required')
@@ -7,13 +14,13 @@ const Group = yup.object({
 
 const User = yup.object({
   id: yup.number().required(),
-  username: yup.string(),
+  username: yup.string().label('Username'),
   name: yup.object({
     first: yup
-        .string()
+        .string().label('Имя')
         .required('First name is required'),
     last: yup
-        .string()
+        .string().label('Фамилия')
         .required('Last name is required')
   }),
   dateOfBirth: yup.date().max(new Date(), 'You can not be born in the future!'),
