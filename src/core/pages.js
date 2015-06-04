@@ -37,7 +37,7 @@ import models from '../models';
 class ListPage extends Component {
 
   renderLoaded({entity, list}) {
-    if (!list[entity]) {
+    if (!list || !list[entity]) {
       return <div>loading!</div>;
     }
     return (
@@ -48,16 +48,16 @@ class ListPage extends Component {
            <tr>
               <th></th>
               {Object.keys(models[entity].fields).map((field, j) => {
-                return <td style={{borderBottom: '1px solid #bbb'}}>
+                return <td style={{borderBottom: '1px solid #bbb'}} key={j}>
                   {field}
                 </td>;
               })}
             </tr>
             {list[entity].map((item, i) => {
-              return <tr>
+              return <tr key={i}>
                 <td><Link name={`admin${entity}Details`} params={{id: item._id}}>{i}</Link></td>
                 {Object.keys(models[entity].fields).map((field, j) => {
-                  return <td style={{borderBottom: '1px solid #bbb'}}>
+                  return <td style={{borderBottom: '1px solid #bbb'}} key={j}>
                     {JSON.stringify(item[field])}
                   </td>;
                 })}

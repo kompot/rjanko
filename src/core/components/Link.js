@@ -2,7 +2,7 @@ import React from 'react';
 import {Component, makePath, classnames} from './Component';
 import routes from '../routes';
 
-export default class Link extends Component {
+export default class Link extends React.Component {
 
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ export default class Link extends Component {
     routes.navigateTo(this._getUrl());
   }
 
-  renderLoaded() {
+  render() {
     return (
       <a {...this.props} onClick={this.clickHandler} href={this._getUrl()}
                          className={classnames('Link', this.props.className)} />

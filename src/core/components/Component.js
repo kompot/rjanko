@@ -47,7 +47,7 @@ class Component extends React.Component {
     //if (!this.isLoaded(this.props, this.state)) {
     //  return this.renderLoading();
     //}
-    debug(`render ${this.constructor.name}`);
+    //debug(`render ${this.constructor.name}`);
     return this.renderLoaded(this.props, this.state);
   }
 
