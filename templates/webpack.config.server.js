@@ -5,10 +5,9 @@ var webpack = require('webpack');
 //var StatsPlugin = require('rjanko/lib/statsPlugin');
 
 var prod = process.env.NODE_ENV === 'production';
+const configCommon = require('./webpack.config');
 
-var nodeModules = {
-  //"./webpack.config.client.js": "./webpack.config.client.js"
-};
+const nodeModules = {};
 
 ['node_modules', 'node_modules/rjanko/node_modules'].map(function (dir) {
   fs.readdirSync(dir)
@@ -25,24 +24,12 @@ var config = {
     server: ['./src/server.js']
   },
   output: {
-  //  //path: path.join(__dirname, 'build-server'),
     libraryTarget: 'commonjs',
     filename: '[name].js'
   },
-  //externals: ['./webpack.config.js'].concat(fs.readdirSync("node_modules").map(function(m) {
-  //  return m;
-  //})),
   externals: nodeModules,
-  resolve: {
-    alias: {
-      // axios requires `es6-promise` polyfill so we replace it with bluebird
-      'es6-promise': 'bluebird'
-    },
-    extensions: ['', '.js'],
-    modulesDirectories: ['src', 'node_modules']
-  },
+  resolve: config.resolve,
   bail: prod,
-  //watch: 'true',
   target: 'node',
   node: {
     console: true,
@@ -54,72 +41,24 @@ var config = {
   },
   module: {
     loaders: [{
-        //test: /src\/.+\.js?$/,
         test: /\.js$/,
         include: /src/,
-        //exclude: /node_modules/,
-        loaders:
-            //prod
-            //? [              'babel']
-            //: ['monkey-hot', 'babel']
-            ['babel']
-      },
-      {
+        loaders: ['babel']
+      }, {
         test: /\.json$/,
         loaders: ['json']
       }
     ]
   },
   plugins: [
-    //new webpack.optimize.CommonsChunkPlugin({
-    //  name: 'vendor',
-    //  minChunks: 2
-    //}),
-    //new webpack.DefinePlugin({
-    //  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || "development")
-    //}),
-    //new webpack.optimize.DedupePlugin(),
-    //new ExtractTextPlugin('[name].[contenthash].css', {
-    //  allChunks: true
-    //}),
-    //new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
-    //new webpack.NoErrorsPlugin(),
-    //new StatsPlugin(),
-
-    //new webpack.NormalModuleReplacementPlugin(/\.styl/, 'node-noop'),
     new webpack.optimize.OccurenceOrderPlugin()
   ],
   recordsPath: path.join(__dirname, '_records.server.json')
 };
 
-if (prod) {
-
-  config.devtool = 'source-map';
-  //config.output.devtoolModuleFilenameTemplate = "file://[resource-path]";
-  //config.output.devtoolFallbackModuleFilenameTemplate = "file://[resource-path]?[hash]";
-  //
-  //config.plugins.push(
-  //  new webpack.optimize.UglifyJsPlugin({comments: /a^/, compress: {warnings: false}})
-  //);
-
-} else {
-  //config.devtool = 'eval';
-  //config.devtool = ' cheap-module-inline-source-map';
-  //config.devtool = 'cheap-source-map';
-  config.devtool = 'source-map';
+config.devtool = 'source-map';
+if (!prod) {
   config.debug = true;
-
-  for (var key in config.entry) {
-    if (key !== 'vendor') {
-      config.entry[key].unshift(
-        //'webpack-dev-server/client?http://127.0.0.1:3001',
-        //'webpack/hot/only-dev-server'
-        //'webpack/hot/signal.js'
-      );
-    }
-  }
-
-  //config.plugins.push(new webpack.HotModuleReplacementPlugin({ quiet: true }));
 }
 
 module.exports = config;

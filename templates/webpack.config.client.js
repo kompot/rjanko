@@ -4,22 +4,7 @@ const StatsPlugin = require('rjanko/src/statsPlugin');
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const prod = process.env.NODE_ENV === 'production';
-
-const autoPrefixerCfg = JSON.stringify({
-  browsers: [
-    'last 1 versions',
-    'IE 11',
-    'Opera 12.1'
-  ]
-});
-
-var svgoConfig = JSON.stringify({
-  plugins: [
-    {removeTitle: true},
-    {convertColors: {shorthex: false}},
-    {convertPathData: false}
-  ]
-});
+const configCommon = require('./webpack.config');
 
 var config = {
   entry: {
@@ -47,14 +32,7 @@ var config = {
     publicPath: '/build/',
     filename: '[name].[chunkhash].js'
   },
-  resolve: {
-    alias: {
-      // axios requires `es6-promise` polyfill so we replace it with bluebird
-      'es6-promise': 'bluebird'
-    },
-    extensions: ['', '.js'],
-    modulesDirectories: ['src', 'node_modules']
-  },
+  resolve: config.resolve,
   bail: prod,
   node: {
     // used to get real filename for `debug`
@@ -67,14 +45,14 @@ var config = {
           //  prod
           //? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
           //:
-            'style!css!autoprefixer?' + autoPrefixerCfg + '!stylus'
+            'style!css!autoprefixer?' + configCommon.autoPrefixerConfig + '!stylus'
       }, {
         test: /\.less$/,
         loader:
           //  prod
           //? ExtractTextPlugin.extract('style', 'css!autoprefixer?' + autoPrefixerCfg + '!stylus')
           //:
-            'style!css!autoprefixer?' + autoPrefixerCfg + '!less'
+            'style!css!autoprefixer?' + configCommon.autoPrefixerConfig + '!less'
       }, {
         test: /\.css$/,
         loader:
@@ -93,7 +71,7 @@ var config = {
             : ['react-hot', 'component-css?ext=styl', 'babel']
       }, {
         test: /.*\.svg.*$/,
-        loaders: ['file', 'svgo?' + svgoConfig]
+        loaders: ['file', 'svgo?' + configCommon.svgoConfig]
       }
     ]
   },
