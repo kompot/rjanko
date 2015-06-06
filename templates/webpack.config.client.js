@@ -4,7 +4,7 @@ const StatsPlugin = require('rjanko/src/statsPlugin');
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const prod = process.env.NODE_ENV === 'production';
-const configCommon = require('./webpack.config');
+var configCommon = require('./webpack.config');
 
 var config = {
   entry: {
@@ -32,7 +32,7 @@ var config = {
     publicPath: '/build/',
     filename: '[name].[chunkhash].js'
   },
-  resolve: config.resolve,
+  resolve: configCommon.resolve,
   bail: prod,
   node: {
     // used to get real filename for `debug`

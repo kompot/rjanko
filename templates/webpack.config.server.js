@@ -5,7 +5,7 @@ var webpack = require('webpack');
 //var StatsPlugin = require('rjanko/lib/statsPlugin');
 
 var prod = process.env.NODE_ENV === 'production';
-const configCommon = require('./webpack.config');
+var configCommon = require('./webpack.config');
 
 const nodeModules = {};
 
@@ -28,7 +28,7 @@ var config = {
     filename: '[name].js'
   },
   externals: nodeModules,
-  resolve: config.resolve,
+  resolve: configCommon.resolve,
   bail: prod,
   target: 'node',
   node: {
