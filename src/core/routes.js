@@ -43,8 +43,8 @@ models.map((model) => {
   routes[`admin${model}Details`] = {
     path: `/a/${model}/details/:id`,
     action: async (data, params, query) => {
-      //const users = await Api.get(`/api/${model.toLowerCase()}`);
-      //data.set(model + 'List', users.data);
+      const users = await Api.get(`/api/${model.toLowerCase()}/${params.id}`);
+      data.set(['admin', 'details', model, params.id], users.data);
     }
   };
 });

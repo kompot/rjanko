@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import classnames from 'classnames';
 import queryString from 'query-string';
 import PropTypes from 'baobab-react/prop-types';
@@ -26,28 +27,31 @@ class Component extends React.Component {
   }
 
   renderLoading() {
-    return 'loading!';
+    return <div>loading!</div>;
   }
 
   renderLoaded() {
     return <div>renderLoaded not implemented</div>;
   }
 
-  isLoaded() {
+  isLoaded(props, state) {
     //if (data instanceof Reference) {
     //  const dataCursor = data.cursor(this.getDataPath());
     //  if (typeof dataCursor.deref() === 'undefined') {
     //    return false;
     //  }
     //}
-    return true;
+    const result = !_.isEmpty(this.tree.select(this.getDataPath()).get());
+    debug(`Data for ${this.getDataPath()} is loaded:`, result);
+    return result;
   }
 
   render() {
-    //if (!this.isLoaded(this.props, this.state)) {
-    //  return this.renderLoading();
-    //}
     //debug(`render ${this.constructor.name}`);
+    //debug('________loaded at ', this.getDataPath(), this.tree.select(this.getDataPath()));
+    if (!this.isLoaded(this.props, this.state)) {
+      return this.renderLoading();
+    }
     return this.renderLoaded(this.props, this.state);
   }
 

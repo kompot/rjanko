@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import Promise from 'bluebird';
+// no axios in components!
+import axios from 'axios';
 import {branch} from 'baobab-react/decorators';
 
 import {Component} from 'core/components/Component';
@@ -14,7 +16,6 @@ const pages = {
 
   adminLogin: () => <LoginPage />,
   adminUsers: () => <UsersPage />,
-  adminPersons: () => <PersonsPage />,
   error404: () => <Error404 />,
   error500: () => <Error500 />
 
@@ -75,16 +76,28 @@ class ListPage extends Component {
 
 Form.addInputTypes(require('react-formal-inputs'));
 
-class DetailsPage extends React.Component {
+@branch({
+  cursors: {
+    details: ['admin', 'details'],
+    entityId: ['route', 'params', 'id']
+  }
+})
+class DetailsPage extends Component {
+
+  getDataPath() {
+    return ['admin', 'details', this.props.entity, this.props.entityId];
+  }
 
   constructor(props) {
     super(props);
+    console.log('====entity', this.props.entityId, this.props.entity);
     this.state = {
       model: {}
     };
   }
 
   updateFormValue = (model) => {
+    debug('_____model', model);
     this.setState({model});
   };
 
@@ -103,8 +116,10 @@ class DetailsPage extends React.Component {
     console.log('_______ groupSearch after', result.data);
   };
 
-  saveForm = () => {
-    console.log('_________', this.state.model);
+  saveForm = async () => {
+    debug('_________', this.state.model);
+    const res = await axios.post(`/api/${this.props.entity}/${this.props.entityId}`, this.state.model);
+    debug('_________ after save', res);
   };
 
   getChildren = (schema, field, i) => {
@@ -152,8 +167,10 @@ class DetailsPage extends React.Component {
   // <span>subfield {field}</span>
   // this.renderForm(schema.fields[field])
 
-  render() {
+  renderLoaded() {
     const {entity} = this.props;
+    const value = this.tree.select(this.getDataPath()).get();
+    //debug(`=========`, value);
     return (
       <div>
         DetailsPage {entity}
@@ -161,10 +178,13 @@ class DetailsPage extends React.Component {
 
         <Form
             schema={models[entity]}
-            value={this.state.model}
+            defaultValue={value[0]}
             onChange={model => this.updateFormValue(model)}
             >
           {this.renderForm(models[entity])}
+          <Form.Button onClick={this.saveForm} type='submit'>
+            Submit
+          </Form.Button>
         </Form>
 
         {/*
@@ -244,88 +264,6 @@ class UsersPage extends Component {
   renderLoaded() {
     return (
       <div>users page</div>
-    );
-  }
-
-}
-
-
-
-class PersonsPage extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      model: {},
-      groups: []
-    };
-  }
-
-  updateFormValue = (model) => {
-    this.setState({model});
-  };
-
-  colorOnChange = (v) => {
-    console.log('_______colorOnChange', v);
-  };
-
-  colorSearch = v => console.log('_______ colorSearch', v);
-
-  groupSearch = async (v) => {
-    console.log('_______ groupSearch before', v);
-    const result = await Api.groups({search: v});
-    this.setState({
-      groups: result.data
-    });
-    console.log('_______ groupSearch after', result.data);
-  };
-
-  saveForm = () => {
-    console.log('_________', this.state.model);
-  };
-
-  render() {
-    return (
-      <div>
-        <Form
-            schema={models.User}
-            value={this.state.model}
-            onChange={model => this.updateFormValue(model)}
-            >
-          <fieldset>
-            <legend>Person</legend>
-
-            <dl>
-              <dt><Form.Field name='name.first' /></dt>
-              <dd><Form.Message for='name.first' /></dd>
-              <dt><Form.Field name='name.last' /></dt>
-              <dd><Form.Message for='name.last' /></dd>
-              <dt><Form.Field name='dateOfBirth' /></dt>
-              <dd><Form.Message for='dateOfBirth' /></dd>
-              <dt>
-                <label>Favorite Color</label>
-                <Form.Field name='colorIds' type='multiselect'
-                            onSearch={this.colorSearch}
-                            defaultValue={['orange', 'red']}
-                            data={['orange', 'red', 'blue', 'purple']}
-                            onChange={this.colorOnChange} />
-              </dt>
-              <dd>
-                <Form.Message for='colorId'/>
-              </dd>
-              <dt>Groups</dt>
-              <dd>
-                <Form.Field name='groups' type='multiselect'
-                            valueField='id' textField='name'
-                            data={this.state.groups}
-                            onSearch={this.groupSearch} />
-              </dd>
-            </dl>
-
-          </fieldset>
-          <Form.Button onClick={this.saveForm} type='submit'>Submit</Form.Button>
-        </Form>
-      </div>
     );
   }
 

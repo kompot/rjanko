@@ -11,10 +11,16 @@ const expressApp = express();
 const models = require('store/mongodb/viewable');
 
 Object.keys(models).map((key) => {
-  //debug(`==================`, key, models[key]);
-  expressApp.get('/' + key.toLowerCase(), async (req, res, next) => {
-    //console.log('___________ key===', key.toLowerCase(), models);
+  expressApp.get(`/${key.toLowerCase()}`, async (req, res, next) => {
     res.send(await models[key][key].find().lean().execAsync());
+  });
+  expressApp.get(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
+    await Promise.delay(500);
+    res.send(await models[key][key].find({'_id': req.params.id}).lean().execAsync());
+  });
+  expressApp.post(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
+    res.send(await models[key][key].findByIdAndUpdate(req.params.id, req.body).lean().execAsync());
+    res.send({ok: true});
   });
 });
 

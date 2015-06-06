@@ -8,12 +8,12 @@ yup.addMethod(yup.mixed, 'label', function(l) {
 });
 
 const Group = yup.object({
-  id: yup.number().required(),
+  _id: yup.string().required(),
   name: yup.string().required('Group name is required')
 });
 
 const User = yup.object({
-  id: yup.number().required(),
+  _id: yup.string().required(),
   username: yup.string().label('Username'),
   name: yup.object({
     first: yup
