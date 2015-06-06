@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import Promise from 'bluebird';
 import {branch} from 'baobab-react/decorators';
 
@@ -47,22 +48,22 @@ class ListPage extends Component {
           <tbody>
            <tr>
               <th></th>
-              {Object.keys(models[entity].fields).map((field, j) => {
-                return <td style={{borderBottom: '1px solid #bbb'}} key={j}>
+              {Object.keys(models[entity].fields).map((field, j) =>
+                <td style={{borderBottom: '1px solid #bbb'}} key={j}>
                   {field}
-                </td>;
-              })}
+                </td>
+              )}
             </tr>
-            {list[entity].map((item, i) => {
-              return <tr key={i}>
+            {list[entity].map((item, i) =>
+              <tr key={i}>
                 <td><Link name={`admin${entity}Details`} params={{id: item._id}}>{i}</Link></td>
-                {Object.keys(models[entity].fields).map((field, j) => {
-                  return <td style={{borderBottom: '1px solid #bbb'}} key={j}>
+                {Object.keys(models[entity].fields).map((field, j) =>
+                  <td style={{borderBottom: '1px solid #bbb'}} key={j}>
                     {JSON.stringify(item[field])}
-                  </td>;
-                })}
-              </tr>;
-            })}
+                  </td>
+                )}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -74,7 +75,7 @@ class ListPage extends Component {
 
 Form.addInputTypes(require('react-formal-inputs'));
 
-class DetailsPage extends Component {
+class DetailsPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -106,20 +107,39 @@ class DetailsPage extends Component {
     console.log('_________', this.state.model);
   };
 
+  getChildren = (schema, field, i) => {
+    if (schema.fields[field].fields) {
+      return (
+        <div style={{border: '1px solid green', paddingLeft: '10px'}} key={i}>
+          {this.renderForm(schema.fields[field], 'name.')}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  getLabel = (schema, field) => {
+    const l = schema.fields[field].label();
+    if (_.isString(l)) {
+      return l;
+    }
+    return null;
+  };
+
   renderForm = (schema, parentFieldName = '') => {
     return (
       <div>
         {Object.keys(schema.fields).map((field, i) => {
-          if (schema.fields[field].fields) {
-            return (
-              <div style={{border: '1px solid green', paddingLeft: '10px'}}>
-                {this.renderForm(schema.fields[field], 'name.')}
-              </div>
-            );
+          const children = this.getChildren(schema, field, i);
+          if (children) {
+            return children;
           }
           return (
-            <div style={{border: '1px solid red', paddingLeft: '10px'}}>
-              <div>{field} - {schema.fields[field].label()}</div>
+            <div style={{border: '1px solid red', paddingLeft: '10px'}} key={i}>
+              <div>
+                <span>{field}</span> -
+                <span>{this.getLabel(schema, field)}</span>
+              </div>
               <Form.Field name={`${parentFieldName}${field}`} />
               <Form.Message for={`${parentFieldName}${field}`} />
             </div>
@@ -132,7 +152,8 @@ class DetailsPage extends Component {
   // <span>subfield {field}</span>
   // this.renderForm(schema.fields[field])
 
-  renderLoaded({entity}) {
+  render() {
+    const {entity} = this.props;
     return (
       <div>
         DetailsPage {entity}
