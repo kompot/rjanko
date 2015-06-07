@@ -19,6 +19,9 @@ export default class ListPage extends Component {
     return (
       <div>
         ListPage {entity}
+        <hr />
+        <Link name={`admin${entity}DetailsNew`}>create new {entity}</Link>
+        <hr />
         <table>
           <tbody>
           <tr>

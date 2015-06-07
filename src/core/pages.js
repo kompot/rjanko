@@ -18,6 +18,7 @@ const pages = {
 require('models/viewable').map((model) => {
   pages[`admin${model}List`] = () => <ListPage entity={model} />;
   pages[`admin${model}Details`] = () => <DetailsPage entity={model} />;
+  pages[`admin${model}DetailsNew`] = () => <DetailsPage entity={model} isNew />;
 });
 
 

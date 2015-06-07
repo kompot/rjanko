@@ -18,14 +18,15 @@ Object.keys(models).map((key) => {
     // TODO remove groups
     res.send(await models[key][key].find(findQuery).populate('groups').lean().execAsync());
   });
+  expressApp.put(`/${key.toLowerCase()}`, async (req, res, next) => {
+    res.send(await models[key][key].create(req.body));
+  });
   expressApp.get(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
-    await Promise.delay(500);
     // TODO remove groups
     res.send(await models[key][key].find({'_id': req.params.id}).populate('groups').lean().execAsync());
   });
   expressApp.post(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
     res.send(await models[key][key].findByIdAndUpdate(req.params.id, req.body).lean().execAsync());
-    res.send({ok: true});
   });
 });
 

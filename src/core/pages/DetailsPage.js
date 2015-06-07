@@ -8,7 +8,7 @@ import axios from 'axios';
 const debug = require('core/logging/debug')(__filename);
 
 import models from 'models';
-import {Component} from 'core/components/Component';
+import {Component, navigateTo, makePath} from 'core/components/Component';
 
 Form.addInputTypes(require('react-formal-inputs'));
 
@@ -21,6 +21,9 @@ Form.addInputTypes(require('react-formal-inputs'));
 export default class DetailsPage extends Component {
 
   getDataPath() {
+    if (this.props.isNew) {
+      return [];
+    }
     return ['admin', 'details', this.props.entity, this.props.entityId];
   }
 
@@ -43,9 +46,13 @@ export default class DetailsPage extends Component {
   colorSearch = v => console.log('_______ colorSearch', v);
 
   saveForm = async () => {
-    debug('_________', this.state.model);
-    const res = await axios.post(`/api/${this.props.entity}/${this.props.entityId}`, this.state.model);
-    debug('_________ after save', res);
+    let res = {};
+    if (this.props.isNew) {
+      res = await axios.put(`/api/${this.props.entity}`, this.state.model);
+      navigateTo(makePath(`admin${this.props.entity}List`));
+    } else {
+      res = await axios.post(`/api/${this.props.entity}/${this.props.entityId}`, this.state.model);
+    }
   };
 
   getChildren = (schema, field, i) => {
