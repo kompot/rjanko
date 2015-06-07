@@ -92,12 +92,12 @@ class DetailsPage extends Component {
     super(props);
     console.log('====entity', this.props.entityId, this.props.entity);
     this.state = {
-      model: {}
+      model: {},
+      refData: {}
     };
   }
 
   updateFormValue = (model) => {
-    debug('_____model', model);
     this.setState({model});
   };
 
@@ -126,7 +126,7 @@ class DetailsPage extends Component {
     if (schema.fields[field].fields) {
       return (
         <div style={{border: '1px solid green', paddingLeft: '10px'}} key={i}>
-          {this.renderForm(schema.fields[field], 'name.')}
+          {this.renderForm(schema.fields[field], field)}
         </div>
       );
     }
@@ -149,14 +149,32 @@ class DetailsPage extends Component {
           if (children) {
             return children;
           }
+          const fieldName = _.compact([parentFieldName, field]).join('.');
+          const extraProps = {};
+          if (schema.fields[field]._type === 'array' && schema.fields[field]._subType.isModel() === true) {
+            const subTypeModel = schema.fields[field]._subType.modelName().toLowerCase();
+
+            extraProps.type = 'multiselect';
+            extraProps.valueField = '_id';
+            extraProps.textField = 'name';
+            extraProps.data = this.state.refData[subTypeModel];
+            extraProps.onSearch = async (v) => {
+              const result = await axios.get(`/api/${subTypeModel}?search=${v}`);
+              this.setState({
+                refData: {
+                  [subTypeModel]: result.data
+                }
+              });
+            };
+          }
           return (
             <div style={{border: '1px solid red', paddingLeft: '10px'}} key={i}>
               <div>
                 <span>{field}</span> -
                 <span>{this.getLabel(schema, field)}</span>
               </div>
-              <Form.Field name={`${parentFieldName}${field}`} />
-              <Form.Message for={`${parentFieldName}${field}`} />
+              <Form.Field name={fieldName} {...extraProps} />
+              <Form.Message for={fieldName} />
             </div>
           );
         })}

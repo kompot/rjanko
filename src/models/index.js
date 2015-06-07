@@ -7,10 +7,17 @@ yup.addMethod(yup.mixed, 'label', function(l) {
   return this;
 });
 
+yup.addMethod(yup.mixed, 'isModel', function(modelName) {
+  this.isModel = () => true;
+  this.modelName = () => modelName;
+  return this;
+});
+
 const Group = yup.object({
   _id: yup.string().required(),
   name: yup.string().required('Group name is required')
-});
+// TODO dry Group!
+}).isModel('Group', true);
 
 const User = yup.object({
   _id: yup.string().required(),
@@ -24,8 +31,8 @@ const User = yup.object({
         .required('Last name is required')
   }),
   dateOfBirth: yup.date().max(new Date(), 'You can not be born in the future!'),
-  colorIds: yup.array().of(yup.string()).required('Please select a color'),
+  //colorIds: yup.array().of(yup.string()).required('Please select a color'),
   groups: yup.array().of(Group)
-});
+}).isModel('User');
 
 export default {User, Group};

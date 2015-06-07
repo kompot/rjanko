@@ -35,20 +35,10 @@ class Component extends React.Component {
   }
 
   isLoaded(props, state) {
-    //if (data instanceof Reference) {
-    //  const dataCursor = data.cursor(this.getDataPath());
-    //  if (typeof dataCursor.deref() === 'undefined') {
-    //    return false;
-    //  }
-    //}
-    const result = !_.isEmpty(this.tree.select(this.getDataPath()).get());
-    debug(`Data for ${this.getDataPath()} is loaded:`, result);
-    return result;
+    return !_.isEmpty(this.tree.select(this.getDataPath()).get());
   }
 
   render() {
-    //debug(`render ${this.constructor.name}`);
-    //debug('________loaded at ', this.getDataPath(), this.tree.select(this.getDataPath()));
     if (!this.isLoaded(this.props, this.state)) {
       return this.renderLoading();
     }
