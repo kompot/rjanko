@@ -53,6 +53,13 @@ export default class DetailsPage extends Component {
     } else {
       res = await axios.post(`/api/${this.props.entity}/${this.props.entityId}`, this.state.model);
     }
+    debug('Update request response is', res);
+  };
+
+  deleteForm = async () => {
+    let res = await axios.delete(`/api/${this.props.entity}/${this.props.entityId}`, this.state.model);
+    debug('Delete request response is', res);
+    navigateTo(makePath(`admin${this.props.entity}List`));
   };
 
   getChildren = (schema, field, i) => {
@@ -116,7 +123,7 @@ export default class DetailsPage extends Component {
   };
 
   renderLoaded() {
-    const {entity} = this.props;
+    const {entity, isNew} = this.props;
     const value = this.tree.select(this.getDataPath()).get();
 
     return (
@@ -130,8 +137,14 @@ export default class DetailsPage extends Component {
             >
           {this.renderForm(models[entity])}
           <Form.Button onClick={this.saveForm} type='submit'>
-            Submit
+            {isNew
+                ? <span>Save</span>
+                : <span>Update</span>
+            }
           </Form.Button>
+          {!isNew &&
+            <div onClick={this.deleteForm} style={{cursor: 'pointer', marginTop: 10}}>Delete</div>
+          }
         </Form>
 
       </div>
