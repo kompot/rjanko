@@ -19,7 +19,7 @@ Object.keys(models).map((key) => {
     res.send(await models[key][key].find(findQuery).populate('groups').lean().execAsync());
   });
   expressApp.put(`/${key.toLowerCase()}`, async (req, res, next) => {
-    res.send(await models[key][key].create(req.body));
+    res.send(await models[key][key].createAsync(req.body));
   });
   expressApp.get(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
     // TODO remove groups
