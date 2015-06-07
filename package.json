@@ -1,6 +1,6 @@
 {
   "name": "rjanko",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ES6+ web framework for perfectionists with deadlines",
   "main": "index.js",
   "scripts": {

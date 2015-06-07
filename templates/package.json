@@ -1,6 +1,6 @@
 {
   "name": "test-project",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "scripts": {
     "dev": "DEBUG=rjanko:* NODE_ENV=development ./node_modules/.bin/rjanko dev",
     "prod": "               NODE_ENV=production ./node_modules/.bin/rjanko prod",
