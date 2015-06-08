@@ -4,10 +4,10 @@ const mkdirp = Promise.promisify(require('mkdirp'));
 const recursive = Promise.promisify(require('recursive-readdir'));
 import _ from 'lodash';
 import path from 'path';
-import spawnChildProcess from 'utils/spawnChildProcess';
+import spawnChildProcess from '../utils/spawnChildProcess';
 
-const debug = require('core/logging/debug')(__filename);
-const error = require('core/logging/debug')(__filename, 'error');
+const debug = require('../core/logging/debug')(__filename);
+const error = require('../core/logging/debug')(__filename, 'error');
 
 async function dirExists(dir) {
   return await fs.statAsync(dir);

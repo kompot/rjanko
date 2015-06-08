@@ -1,10 +1,10 @@
 import React from 'react';
 import {branch} from 'baobab-react/decorators';
 
-import {Component} from 'core/components/Component';
-import Login from 'core/admin/Login';
-import ListPage from 'core/pages/ListPage';
-import DetailsPage from 'core/pages/DetailsPage';
+import {Component} from './components/Component';
+import Login from './admin/Login';
+import ListPage from './pages/ListPage';
+import DetailsPage from './pages/DetailsPage';
 
 const pages = {
 
@@ -15,7 +15,7 @@ const pages = {
 
 };
 
-require('models/viewable').map((model) => {
+require('../models/viewable').map((model) => {
   pages[`admin${model}List`] = () => <ListPage entity={model} />;
   pages[`admin${model}Details`] = () => <DetailsPage entity={model} />;
   pages[`admin${model}DetailsNew`] = () => <DetailsPage entity={model} isNew />;

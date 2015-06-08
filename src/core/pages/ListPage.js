@@ -1,9 +1,9 @@
 import React from 'react';
 import {branch} from 'baobab-react/decorators';
 
-import models from 'models';
-import {Component} from 'core/components/Component';
-import Link from 'core/components/Link';
+import models from '../../models';
+import {Component} from '../components/Component';
+import Link from '../components/Link';
 
 @branch({
   cursors: {

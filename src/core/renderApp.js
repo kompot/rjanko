@@ -3,12 +3,12 @@ import React from 'react';
 import Baobab from 'baobab';
 import {root} from 'baobab-react/higher-order';
 
-import initData from 'core/data';
-import Html from 'core/components/Html';
-import Layout from 'core/components/Layout';
-import routes, {actions} from 'core/routes';
+import initData from './data';
+import Html from './components/Html';
+import Layout from './components/Layout';
+import routes, {actions} from './routes';
 
-const debug = require('core/logging/debug')(__filename);
+const debug = require('./logging/debug')(__filename);
 
 function renderHtml(res, data, webpackAssets) {
   const BaobabInjectedLayout = root(Layout, data);

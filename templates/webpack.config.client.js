@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const StatsPlugin = require('rjanko/src/statsPlugin');
+const StatsPlugin = require('rjanko/lib/statsPlugin');
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const prod = process.env.NODE_ENV === 'production';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {branch} from 'baobab-react/decorators';
 
-import {Component} from 'core/components/Component';
+import {Component} from '../components/Component';
 
 @branch({
   cursors: {

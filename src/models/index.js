@@ -1,6 +1,6 @@
 import yup from 'yup';
 
-const debug = require('core/logging/debug')(__filename);
+const debug = require('../core/logging/debug')(__filename);
 
 yup.addMethod(yup.mixed, 'label', function(l) {
   this.label = () => l;

@@ -5,14 +5,14 @@ import queryString from 'query-string';
 import Baobab from 'baobab';
 import {root} from 'baobab-react/higher-order';
 
-import Layout from 'core/components/Layout';
-import routes, {actions} from 'core/routes';
+import Layout from './components/Layout';
+import routes, {actions} from './routes';
 
 require('react-widgets/lib/less/react-widgets.less');
 
 const history = new History();
 
-const derror = require('core/logging/debug')(__filename, 'error');
+const derror = require('./logging/debug')(__filename, 'error');
 
 const data = new Baobab(window._app_state_, {
   syncwrite: true

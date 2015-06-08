@@ -20,5 +20,5 @@ module.exports.resolve = {
     'es6-promise': 'bluebird'
   },
   extensions: ['', '.js'],
-  modulesDirectories: ['src', 'node_modules']
+  modulesDirectories: ['node_modules']
 };

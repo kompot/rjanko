@@ -3,11 +3,11 @@ import Promise from 'bluebird';
 Promise.promisifyAll(mongoose);
 import express from 'express';
 
-const debug = require('core/logging/debug')(__filename);
+const debug = require('../../core/logging/debug')(__filename);
 
 const expressApp = express();
 
-const models = require('store/mongodb/viewable');
+const models = require('./viewable');
 
 Object.keys(models).map((key) => {
   expressApp.get(`/${key.toLowerCase()}`, async (req, res, next) => {

@@ -5,10 +5,10 @@ import Form from 'react-formal';
 // no axios in components!
 import axios from 'axios';
 
-const debug = require('core/logging/debug')(__filename);
+const debug = require('../logging/debug')(__filename);
 
-import models from 'models';
-import {Component, navigateTo, makePath} from 'core/components/Component';
+import models from '../../models';
+import {Component, navigateTo, makePath} from '../components/Component';
 
 Form.addInputTypes(require('react-formal-inputs'));
 

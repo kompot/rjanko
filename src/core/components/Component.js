@@ -4,10 +4,10 @@ import classnames from 'classnames';
 import queryString from 'query-string';
 import PropTypes from 'baobab-react/prop-types';
 
-import routes from 'core/routes';
-import Actions from 'core/actions';
+import routes from '../routes';
+import Actions from '../actions';
 
-const debug = require('core/logging/debug')(__filename);
+const debug = require('../logging/debug')(__filename);
 
 class Component extends React.Component {
 
