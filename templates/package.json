@@ -1,6 +1,6 @@
 {
   "name": "test-project",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "scripts": {
     "dev": "DEBUG=rjanko:* NODE_ENV=development ./node_modules/.bin/rjanko dev",
     "prod": "               NODE_ENV=production ./node_modules/.bin/rjanko prod",
@@ -14,7 +14,7 @@
     "json-loader": "^0.5.2",
     "node-libs-browser": "^0.5.2",
     "nodemon": "^1.3.7",
-    "rjanko": "0.0.3",
+    "rjanko": "0.0.4",
     "webpack": "^1.9.10"
   }
 }
