@@ -1,2 +1,0 @@
-nginx: nginx -p $(pwd) -c $(pwd)/nginx.prod.conf
-rjanko: npm run prodDebug

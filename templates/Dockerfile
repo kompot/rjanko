@@ -1,7 +1,0 @@
-FROM iojs:2.0.0
-
-WORKDIR /src
-
-ENV NODE_TLS_REJECT_UNAUTHORIZED 0
-
-#RUN npm install
