@@ -4,6 +4,9 @@ import DataDisplay from '../components/DataDisplay';
 import UserInfo from '../admin/UserInfo';
 import Link from '../components/Link';
 import {PageRouter} from '../pages';
+import models from '../../models/viewable';
+
+import subprojectModels from 'subproject/src/models';
 
 export default class Layout extends React.Component {
 
@@ -11,9 +14,19 @@ export default class Layout extends React.Component {
     return (
       <div className='Layout'>
 
-        <Link name='adminUserList'>user</Link>
-        |
-        <Link name='adminGroupList'>group</Link>
+        <h3>Rjanko models</h3>
+
+        {models.map((m) =>
+          <Link name={`admin${m}List`}>{m}</Link>
+        )}
+
+        <h3>Project models</h3>
+
+        {Object.keys(subprojectModels).map(m =>
+          <Link name={`admin${m}List`}>{m}</Link>
+        )}
+
+        <hr />
 
         <UserInfo />
         <PageRouter />

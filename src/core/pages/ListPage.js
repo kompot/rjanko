@@ -1,9 +1,15 @@
 import React from 'react';
+import _ from 'lodash';
 import {branch} from 'baobab-react/decorators';
 
-import models from '../../models';
+import rjankoModels from '../../models';
 import {Component} from '../components/Component';
 import Link from '../components/Link';
+
+import subprojectModels from 'subproject/src/models';
+
+let models1 = _.merge({}, rjankoModels);
+let models = _.merge(models1, subprojectModels);
 
 @branch({
   cursors: {

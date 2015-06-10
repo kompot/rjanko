@@ -47,14 +47,4 @@ expressApp.use((err, req, res, next) => {
   next();
 });
 
-const port = process.env.PORT || 3000;
-const server = http.Server(expressApp); //eslint-disable-line new-cap
-
-new SocketIoServer(server); //  eslint-disable-line no-new
-
-server.listen(port, (err, result) => {
-  if (err) {
-    debug(err, result);
-  }
-  debug(`Express server listening on ${port}`);
-});
+export default expressApp;

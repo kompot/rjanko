@@ -15,12 +15,14 @@ const pages = {
 
 };
 
-require('../models/viewable').map((model) => {
+function addViewForModel(model) {
   pages[`admin${model}List`] = () => <ListPage entity={model} />;
   pages[`admin${model}Details`] = () => <DetailsPage entity={model} />;
   pages[`admin${model}DetailsNew`] = () => <DetailsPage entity={model} isNew />;
-});
+}
 
+require('../models/viewable').map(addViewForModel);
+Object.keys(require('subproject/src/models')).map(addViewForModel);
 
 @branch({
   cursors: {

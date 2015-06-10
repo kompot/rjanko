@@ -30,9 +30,7 @@ const routes = {
 
 };
 
-const models = require('../models/viewable');
-
-models.map((model) => {
+function addRoutesForModel(model) {
   routes[`admin${model}List`] = {
     path: `/a/${model}`,
     action: async (data, params, query) => {
@@ -54,7 +52,13 @@ models.map((model) => {
       //data.set(['admin', 'details', model, params.id], users.data);
     }
   };
-});
+}
+
+const models = require('../models/viewable');
+models.map(addRoutesForModel);
+
+const subprojectModels = Object.keys(require('subproject/src/models'));
+subprojectModels.map(addRoutesForModel);
 
 const _actions = {};
 

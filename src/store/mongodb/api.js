@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import mongoose from 'mongoose';
 import Promise from 'bluebird';
 Promise.promisifyAll(mongoose);
@@ -7,9 +8,15 @@ const debug = require('../../core/logging/debug')(__filename);
 
 const expressApp = express();
 
-const models = require('./viewable');
+const modelsRjanko = require('./viewable');
+Object.keys(modelsRjanko).map(addApiForModel);
+const modelsSubproject = require('subproject/src/modelsDb');
+Object.keys(modelsSubproject).map(addApiForModel);
 
-Object.keys(models).map((key) => {
+let models1 = _.merge({}, modelsRjanko)
+let models = _.merge(models1, modelsSubproject);
+
+function addApiForModel(key) {
   expressApp.get(`/${key.toLowerCase()}`, async (req, res, next) => {
     const findQuery = {};
     if (req.query.search) {
@@ -31,6 +38,6 @@ Object.keys(models).map((key) => {
   expressApp.delete(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
     res.send(await models[key][key].findByIdAndRemoveAsync(req.params.id));
   });
-});
+}
 
 export default expressApp;
