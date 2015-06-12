@@ -2,8 +2,6 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies Status][david-image]][david-url]
 
-In heavy development until version 0.1.0. Not nearly usable until then.
-
 [npm-image]: http://img.shields.io/npm/v/rjanko.svg
 [npm-url]: https://npmjs.org/package/rjanko
 
@@ -15,6 +13,29 @@ In heavy development until version 0.1.0. Not nearly usable until then.
 
 [david-image]: https://david-dm.org/kompot/rjanko.svg
 [david-url]: https://david-dm.org/kompot/rjanko 
+
+In **heavy** development until version 0.1.0. Not nearly usable until then.
+
+## Rationale
+
+There are lots of fine libs for JavaScript/NodeJS out there. Not so much as for frameworks. With React/Webpack/Babel coming to mainstream it's becoming obvious that there's no decent full stack framework embracing those technologies. So *the* goal of this project is to become Ruby on Rails/Django for modern JS stack. Not nearly ready even for alpha quality prototypes. Wait for 0.1.0.
+
+There are some libs that should be considered base platfrom for Rjanko and chance of them going away is extremly low:
+
+- [React](http://facebook.github.io/react/)
+- [Webpack](http://webpack.github.io/)
+- [Babel](https://babeljs.io/)
+- [Bluebird](https://github.com/petkaantonov/bluebird/)
+- [Express](http://expressjs.com/)
+
+All others should/must be made optional or replacable.
+
+## Goals
+
+There 2 main goals of this project:
+
+- make full stack JS developer as productive as possible 
+- use as little self written code as possible, rely on well established libraries
 
 ## Wanna try?
 
