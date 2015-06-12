@@ -2,12 +2,11 @@ import React from 'react';
 import _ from 'lodash';
 import {branch} from 'baobab-react/decorators';
 
-import rjankoModels from '../../models';
 import {Component} from '../components/Component';
 import Link from '../components/Link';
 
+import rjankoModels from '../../models';
 import subprojectModels from 'subproject/src/models';
-
 let models1 = _.merge({}, rjankoModels);
 let models = _.merge(models1, subprojectModels);
 

@@ -7,7 +7,11 @@ import axios from 'axios';
 
 const debug = require('../logging/debug')(__filename);
 
-import models from '../../models';
+import rjankoModels from '../../models';
+import subprojectModels from 'subproject/src/models';
+let models1 = _.merge({}, rjankoModels);
+let models = _.merge(models1, subprojectModels);
+
 import {Component, navigateTo, makePath} from '../components/Component';
 
 Form.addInputTypes(require('react-formal-inputs'));
