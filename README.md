@@ -46,8 +46,8 @@ at all times
 Quick start on a Mac OS X
 
 ```                                       
-# install nvm to manage node/npm versions and MongoDB
-brew install nvm mongodb
+# install nvm to manage node/npm versions, MongoDB and nginx
+brew install nvm mongodb nginx
 
 # make dir for sample project
 mkdir myproject
@@ -55,14 +55,14 @@ cd myproject
 
 # install latest iojs
 nvm install 2.3.0
-nvm default 2.3.0
+# make it default (optional)
+# nvm alias default 2.3.0
 
-# install Yeoman and its generator for Rjanko
-# or use '-g' key to skip './node_modules/.bin/' prefix below
-npm install yo generator-rjanko
+# install Yeoman and its generator for Rjanko globally
+npm install -g yo generator-rjanko
 
 # run Yeoman generator to scaffold a project
-./node_modules/.bin/yo rjanko
+yo rjanko
 
 # click next couple of times
 # Use node foreman to run sample project
