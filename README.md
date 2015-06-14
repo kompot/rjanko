@@ -43,55 +43,30 @@ at all times
 
 ## Wanna try?
 
-Quick start to fool around on Ubuntu 14.04.
+Quick start on a Mac OS X
 
-I recommend using [Digital Ocean](https://www.digitalocean.com/?refcode=5cfd9196c66f) for quickest setup (if you choose smallest 512MB instance make sure to [setup swap](https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04) so that `npm install` works and does not run out of RAM).
+```                                       
+# install nvm to manage node/npm versions and MongoDB
+brew install nvm mongodb
 
-### Get mongo (for now MongoDB is the only storage option planned, PostgreSQL might come in 0.2.0+)
+# make dir for sample project
+mkdir myproject
+cd myproject
 
-```
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-```
+# install latest iojs
+nvm install 2.3.0
+nvm default 2.3.0
 
-### Get nginx
+# install Yeoman and its generator for Rjanko
+# or use '-g' key to skip './node_modules/.bin/' prefix below
+npm install yo generator-rjanko
 
-```
-apt-get install nginx
-```
+# run Yeoman generator to scaffold a project
+./node_modules/.bin/yo rjanko
 
-### Get & unpack sources
-
-```
-wget -O rjanko.zip http://github.com/kompot/rjanko/zipball/master
-sudo apt-get install unzip unp
-unp rjanko.zip
-mv kompot-rjanko-* rjanko
+# click next couple of times
+# Use node foreman to run sample project
+./node_modules/.bin/nf start
 ```
 
-### Install node/io/npm via nvm
-
-```
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash
-source ~/.bashrc
-cd rjanko
-nvm install
-```
-
-### Install forego for devserver running
-```
-cd templates
-wget -O forego https://godist.herokuapp.com/projects/ddollar/forego/releases/0.13.1/linux-amd64/forego
-chmod +x forego
-```
-
-### Install node dependencies
-
-```
-npm install
-./forego start -f Procfile.dev
-```
-
-If it starts up ok then `http://localhost:5000/a/User` should show a page with ability to add user/groups to MongoDB.
+Head to http://localhost:5000/ to see some models that can be created/updated.
