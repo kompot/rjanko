@@ -26,6 +26,7 @@ There are some libs that should be considered base platfrom for Rjanko and chanc
 - [Webpack](http://webpack.github.io/)
 - [Babel](https://babeljs.io/)
 - [Bluebird](https://github.com/petkaantonov/bluebird/)
+- [Lodash](https://lodash.com/)
 - [Express](http://expressjs.com/)
 
 All others should/must be made optional or replacable.
@@ -35,7 +36,10 @@ All others should/must be made optional or replacable.
 There 2 main goals of this project:
 
 - make full stack JS developer as productive as possible 
-- use as little self written code as possible, rely on well established libraries
+- use as little self written code as possible, rely on well established 
+libraries, avoid [bikeshedding](https://en.wikipedia.org/wiki/Parkinson's_law_of_triviality)
+at all times
+- make libs other than core (see above) pluggable
 
 ## Wanna try?
 

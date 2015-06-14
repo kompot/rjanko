@@ -1,14 +1,19 @@
 import mongoose from 'mongoose';
-import Promise from 'bluebird';
-Promise.promisifyAll(mongoose);
 
-const debug = require('../../core/logging/debug')(__filename);
-const derror = require('../../core/logging/debug')(__filename, 'error');
-
-mongoose.connect('mongodb://localhost/rjanko');
-
-const db = mongoose.connection;
-db.on('error', () => derror('Error connecting to MongoDB instance.'));
-db.once('open', async () => {
-  debug('Connection to MongoDB opened');
+const GroupSchema = new mongoose.Schema({
+  name: String
 });
+
+const UserSchema = new mongoose.Schema({
+  username: String,
+  name: {
+    first: String,
+    last: String
+  },
+  groups: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }]
+});
+
+const Group = mongoose.model('Group', GroupSchema);
+const User = mongoose.model('User', UserSchema);
+
+export default {User, Group}

@@ -9,7 +9,6 @@ import DetailsPage from './pages/DetailsPage';
 const pages = {
 
   adminLogin: () => <LoginPage />,
-  adminUsers: () => <UsersPage />,
   error404: () => <Error404 />,
   error500: () => <Error500 />
 
@@ -21,8 +20,10 @@ function addViewForModel(model) {
   pages[`admin${model}DetailsNew`] = () => <DetailsPage entity={model} isNew />;
 }
 
-require('../models/viewable').map(addViewForModel);
-Object.keys(require('subproject/src/models')).map(addViewForModel);
+Object.keys(require('../models')).map(addViewForModel);
+require('cfg').applications.forEach(app =>
+  Object.keys(app.models).forEach(addViewForModel)
+);
 
 @branch({
   cursors: {
@@ -48,16 +49,6 @@ class LoginPage extends Component {
 
 }
 
-class UsersPage extends Component {
-
-  renderLoaded() {
-    return (
-      <div>users page</div>
-    );
-  }
-
-}
-
 class Error404 extends Component {
 
   renderLoaded() {
@@ -78,4 +69,4 @@ class Error500 extends Component {
 
 }
 
-export {PageRouter, LoginPage, UsersPage, Error404, Error500};
+export {PageRouter, LoginPage, Error404, Error500};

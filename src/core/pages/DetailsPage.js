@@ -8,9 +8,11 @@ import axios from 'axios';
 const debug = require('../logging/debug')(__filename);
 
 import rjankoModels from '../../models';
-import subprojectModels from 'subproject/src/models';
-let models1 = _.merge({}, rjankoModels);
-let models = _.merge(models1, subprojectModels);
+let models = _.merge({}, rjankoModels);
+require('cfg').applications.forEach(app => {
+  Object.keys(app.models).forEach(m => models[m] = app.models[m]);
+})
+
 
 import {Component, navigateTo, makePath} from '../components/Component';
 

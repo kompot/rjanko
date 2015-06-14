@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 //});
 
 require('./auth')(expressApp);
-require('../store/mongodb/index.js');
+
 expressApp.use('/api', require('../store/mongodb/api.js'));
 
 expressApp.use(async (req, res, next) => {

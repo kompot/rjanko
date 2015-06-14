@@ -54,11 +54,10 @@ function addRoutesForModel(model) {
   };
 }
 
-const models = require('../models/viewable');
-models.map(addRoutesForModel);
-
-const subprojectModels = Object.keys(require('subproject/src/models'));
-subprojectModels.map(addRoutesForModel);
+Object.keys(require('../models')).map(addRoutesForModel);
+require('cfg').applications.map(app =>
+  Object.keys(app.models).forEach(addRoutesForModel)
+);
 
 const _actions = {};
 
