@@ -58,11 +58,11 @@ nvm install 2.3.0
 # make it default (optional)
 # nvm alias default 2.3.0
 
-# install Yeoman and its generator for Rjanko globally
-npm install -g yo generator-rjanko
+# install Yeoman and its generator for Rjanko
+npm install yo generator-rjanko
 
 # run Yeoman generator to scaffold a project
-yo rjanko
+./node_modules/.bin/yo rjanko
 
 # click next couple of times
 # Use node foreman to run sample project
