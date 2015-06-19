@@ -12,11 +12,12 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div className='Layout'>
-
+        <UserInfo />
+        <hr />
         <h3>Rjanko models</h3>
 
         {Object.keys(models).map(m =>
-          <Link name={`admin${m}List`}>{m}</Link>
+          <Link name={`admin${m}List`} className='Layout-NavLink'>{m}</Link>
         )}
 
         {require('cfg').applications.map(app => {
@@ -30,7 +31,6 @@ export default class Layout extends React.Component {
 
         <hr />
 
-        <UserInfo />
         <PageRouter />
         {/*
         <h1>{data.select(['header', 'title']).get()}</h1>

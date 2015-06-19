@@ -52,6 +52,8 @@ export default async function(req, res, next, webpackAssets) {
     NODE_ENV: process.env.NODE_ENV
   });
 
+  data.set('user', req.user);
+
   const actionPromise = actions[route.name]
       ? actions[route.name](data, route.params, req.query)
       : new Promise(resolve => resolve());

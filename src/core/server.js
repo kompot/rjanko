@@ -30,8 +30,11 @@ if (process.env.NODE_ENV === 'production') {
 //  res.send(webpackAssets);
 //});
 
-require('./auth')(expressApp);
+import {authApp, addAuthToExpressApp} from './auth.js';
 
+addAuthToExpressApp(expressApp);
+// TODO everything collapses in single namespace!
+expressApp.use('/api', authApp);
 expressApp.use('/api', require('../store/mongodb/api.js'));
 
 expressApp.use(async (req, res, next) => {

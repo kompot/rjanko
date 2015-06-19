@@ -37,6 +37,13 @@ export default class SocketIoServer {
         cookies: headers['set-cookie']
       });
     } catch (e) {
+      if (String(e.status)[0] === "4") {
+        socket.emit('apiResponse', {
+          requestId: payload.requestId,
+          status: e.status,
+          data: e.data
+        });
+      }
       derror(`Unable to perform request`, e);
     }
   }
