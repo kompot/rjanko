@@ -17,6 +17,8 @@ passport.deserializeUser((user, done) => {
   done(null, JSON.parse(user));
 });
 
+var MongoStore = require('connect-mongo')(expressSession);
+
 function addAuthToExpressApp(eapp) {
   eapp.use(cookieParser());
   eapp.use(bodyParser.urlencoded({
@@ -26,6 +28,11 @@ function addAuthToExpressApp(eapp) {
   eapp.use(expressSession({
     // TODO replace with an ENV variable
     secret: 'sessionSuperVerySecret',
+    store: new MongoStore({
+      // TODO reuse Mongo connection
+      url: require('cfg').db.mongo.connection,
+      ttl: 14 * 24 * 60 * 60 // 14 days
+    }),
     resave: true,
     saveUninitialized: true,
     name: 'rjanko.sid',
