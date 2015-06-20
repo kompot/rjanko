@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {branch} from 'baobab-react/decorators';
 
-import {Component} from '../components/Component';
+import {Component, navigateTo, makePath} from '../components/Component';
 import Link from '../components/Link';
 
 import rjankoModels from '../../models';
@@ -18,36 +18,42 @@ require('cfg').applications.forEach(app => {
 })
 export default class ListPage extends Component {
 
+  goToDetails = (id) => navigateTo(makePath(`admin${this.props.entity}Details`, {id}))
+
   renderLoaded({entity, list}) {
     if (!list || !list[entity]) {
       return <div>loading!</div>;
     }
     return (
       <div>
-        ListPage {entity}
-        <hr />
-        <Link name={`admin${entity}DetailsNew`}>create new {entity}</Link>
-        <hr />
-        <table>
+        <div className='ListPage-HeaderButtons'>
+          <div>{entity}</div>
+          <div>
+            <Link name={`admin${entity}DetailsNew`}>
+              <button>create new {entity}</button>
+            </Link>
+          </div>
+        </div>
+        <table className='ListPage-DataTable'>
+          <thead>
+            <tr>
+              {Object.keys(models[entity].fields).map((field, j) =>
+                <th key={j}>
+                  {field}
+                </th>
+              )}
+            </tr>
+          </thead>
           <tbody>
-          <tr>
-            <th></th>
-            {Object.keys(models[entity].fields).map((field, j) =>
-              <td style={{borderBottom: '1px solid #bbb'}} key={j}>
-                {field}
-              </td>
+            {list[entity].map((item, i) =>
+              <tr key={i} onClick={this.goToDetails.bind(this, item._id)}>
+                {Object.keys(models[entity].fields).map((field, j) =>
+                  <td key={j}>
+                    {JSON.stringify(item[field])}
+                  </td>
+                )}
+              </tr>
             )}
-          </tr>
-          {list[entity].map((item, i) =>
-          <tr key={i}>
-            <td><Link name={`admin${entity}Details`} params={{id: item._id}}>{i}</Link></td>
-            {Object.keys(models[entity].fields).map((field, j) =>
-              <td style={{borderBottom: '1px solid #bbb'}} key={j}>
-                {JSON.stringify(item[field])}
-              </td>
-            )}
-          </tr>
-          )}
           </tbody>
         </table>
       </div>

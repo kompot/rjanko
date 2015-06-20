@@ -42,7 +42,6 @@ class LoginPage extends Component {
     return (
       <div>
         <Login />
-        login page
       </div>
     );
   }

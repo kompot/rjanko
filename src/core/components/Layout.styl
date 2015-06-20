@@ -1,5 +1,32 @@
+@require '../../cssReset.css';
+
 .Layout {
-  &-NavLink {
-    margin-right: 8px;
+
+  &-Header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid hsla(0, 0%, 0%, .1);
+    padding: 16px;
+  }
+
+  &-Content {
+    display: flex;
+  }
+
+  &-Navigation {
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-right: 1px solid hsla(0, 0%, 0%, .1);
+    padding: 16px;
+    width: 128px;
+
+    &Group {
+      margin-top: 16px;
+    }
+  }
+
+  &-Data {
+    flex: 1 0 auto;
+    padding: 16px;
   }
 }

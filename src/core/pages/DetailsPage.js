@@ -71,9 +71,9 @@ export default class DetailsPage extends Component {
   getChildren = (schema, field, i) => {
     if (schema.fields[field].fields) {
       return (
-          <div style={{border: '1px solid green', paddingLeft: '10px'}} key={i}>
-            {this.renderForm(schema.fields[field], field)}
-          </div>
+        <div style={{paddingLeft: '10px'}} key={i}>
+          {this.renderForm(schema.fields[field], field)}
+        </div>
       );
     }
     return null;
@@ -97,32 +97,39 @@ export default class DetailsPage extends Component {
             }
             const fieldName = _.compact([parentFieldName, field]).join('.');
             const extraProps = {};
-            if (schema.fields[field]._type === 'array' && schema.fields[field]._subType.isModel() === true) {
-              const subTypeModel = schema.fields[field]._subType.modelName().toLowerCase();
+            // fields ending with `_id` will not be output to UI
+            if (!/.*_id$/.test(field)) {
+              if (schema.fields[field]._type === 'array' && schema.fields[field]._subType.isModel() === true) {
+                const subTypeModel = schema.fields[field]._subType.modelName().toLowerCase();
 
-              extraProps.type = 'multiselect';
-              extraProps.valueField = '_id';
-              extraProps.textField = 'name';
-              extraProps.data = this.state.refData[subTypeModel];
-              extraProps.onSearch = async (v) => {
-                const result = await axios.get(`/api/${subTypeModel}?search=${v}`);
-                this.setState({
-                  refData: {
-                    [subTypeModel]: result.data
-                  }
-                });
-              };
-            }
-            return (
-                <div style={{border: '1px solid red', paddingLeft: '10px'}} key={i}>
+                extraProps.type = 'multiselect';
+                extraProps.valueField = '_id';
+                extraProps.textField = 'name';
+                extraProps.data = this.state.refData[subTypeModel];
+                extraProps.onSearch = async (v) => {
+                  const result = await axios.get(`/api/${subTypeModel}?search=${v}`);
+                  this.setState({
+                    refData: {
+                      [subTypeModel]: result.data
+                    }
+                  });
+                };
+              }
+              const label = this.getLabel(schema, field);
+              return (
+                <div style={{paddingTop: '16px'}}
+                     key={i}>
                   <div>
-                    <span>{field}</span> -
-                    <span>{this.getLabel(schema, field)}</span>
+                    {label &&
+                      <span>{label} | </span>
+                    }
+                    <span>{field}</span>
                   </div>
                   <Form.Field name={fieldName} {...extraProps} />
-                  <Form.Message for={fieldName} />
+                  <Form.Message for={fieldName}/>
                 </div>
-            );
+              );
+            }
           })}
         </div>
     );
@@ -148,8 +155,9 @@ export default class DetailsPage extends Component {
                 : <span>Update</span>
             }
           </Form.Button>
+
           {!isNew &&
-            <div onClick={this.deleteForm} style={{cursor: 'pointer', marginTop: 10}}>Delete</div>
+            <Form.Button onClick={this.deleteForm}>Delete</Form.Button>
           }
         </Form>
 
