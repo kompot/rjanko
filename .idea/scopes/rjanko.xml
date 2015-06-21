@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="rjanko" pattern="!file[rjanko]:lib//*&amp;&amp;!file[rjanko]:.idea//*&amp;&amp;!file[rjanko]:node_modules/.bin//*&amp;&amp;!file[rjanko]:node_modules//*||file[rjanko]:test//*" />
+</component>

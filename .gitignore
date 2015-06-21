@@ -28,8 +28,8 @@ node_modules
 lib
 
 # IntelliJ IDEA project files
-.idea
-*.iml
+#.idea
+#*.iml
 
 # isparta code coverage
 coverage
