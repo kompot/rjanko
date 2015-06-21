@@ -10,26 +10,10 @@ const commandStrings = ['create', 'dev', 'prod'];
 const commands = _.object(commandStrings, commandStrings);
 
 program
-  .command(`${commands.create} [name]`)
-  .description('scaffold new project')
-  .action((name) => {
-    process.stdout.write('create project %s', name);
-    require(`./actions/${commands.create}.js`)({name});
-  });
-
-program
-  .command(`${commands.init}`)
-  .description('scaffold new project in current directory')
-  .action(() => {
-    process.stdout.write('init project');
-    require(`./actions/${commands.init}.js`)();
-  });
-
-program
   .command(`${commands.dev}`)
   .description('start development mode')
   .action(() => {
-    process.stdout.write('Starting development mode1');
+    process.stdout.write('Starting development mode');
     require(`./actions/${commands.dev}.js`)();
   });
 
