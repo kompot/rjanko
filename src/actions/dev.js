@@ -15,7 +15,7 @@ export default function() {
   );
   spawnChildProcess(
       './node_modules/.bin/babel-node',
-      ['./node_modules/rjanko/lib/core/server.webpack.js'],
+      ['./node_modules/rjanko/src/core/server.webpack.js'],
       {}
   );
 }

@@ -1,17 +1,15 @@
-import path from 'path';
+var path = require('path');
+var WebpackDevServer = require('webpack-dev-server');
+var webpack = require('webpack');
 
-import WebpackDevServer from 'webpack-dev-server';
-import webpack from 'webpack';
-
-const debug = require('./logging/debug')(__filename);
-const port = 3001;
-const compiler = webpack(require(path.join(
-    process.cwd(),
-    'webpack.config.client.js'
+var port = 3001;
+var compiler = webpack(require(path.join(
+  process.cwd(),
+  'webpack.config.client.js'
 )));
 
-const webpackServer = new WebpackDevServer(compiler, {
-  publicPath: `http://0.0.0.0:${port}/build/`,
+var webpackServer = new WebpackDevServer(compiler, {
+  publicPath: 'http://0.0.0.0:' + port + '/build/',
   watchDelay: 0,
   hot: true,
   stats: {
@@ -25,10 +23,10 @@ const webpackServer = new WebpackDevServer(compiler, {
   }
 });
 
-webpackServer.listen(port, '0.0.0.0', (err, result) => {
+webpackServer.listen(port, '0.0.0.0', function (err, result) {
   if (err) {
-    debug(err, result);
+    console.log(err, result);
   } else {
-    debug(`Webpack dev server listening on ${port}`);
+    console.log('Webpack dev server listening on ' + port);
   }
 });

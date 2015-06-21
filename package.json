@@ -1,11 +1,9 @@
 {
   "name": "rjanko",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "ES6+ web framework for perfectionists with deadlines",
   "main": "index.js",
   "scripts": {
-    "compile": "rm -rf lib/; cp -r src/ lib/; babel -d lib/ src/",
-    "prepublish": "npm run compile",
     "test": "DEBUG=rjanko:* NODE_ENV=test mocha --compilers js:babel/register --timeout 600000",
     "lint": "eslint src",
     "posttest": "npm run lint",
@@ -17,7 +15,7 @@
     "url": "https://github.com/kompot/rjanko.git"
   },
   "bin": {
-    "rjanko": "./lib/rjanko.js"
+    "rjanko": "./src/rjanko.js"
   },
   "author": "Anton Fedchenko <kompotik@gmail.com>",
   "license": "MIT",
