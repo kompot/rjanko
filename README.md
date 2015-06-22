@@ -70,3 +70,6 @@ npm install yo generator-rjanko
 ```
 
 Head to http://localhost:5000/ to see some models that can be created/updated.
+
+![](https://github.com/kompot/rjanko/blob/master/screenshot.png)
+
