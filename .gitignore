@@ -30,6 +30,7 @@ lib
 # IntelliJ IDEA project files
 #.idea
 #*.iml
+.idea/workspace.xml
 
 # isparta code coverage
 coverage
