@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import 'babel/register';
+//import 'babel/register';
 import program from 'commander';
 import _ from 'lodash';
 

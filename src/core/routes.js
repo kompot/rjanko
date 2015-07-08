@@ -20,6 +20,10 @@ const routes = {
     path: '/admin/login'
   },
 
+  401: {
+    path: '/401'
+  },
+
   404: {
     path: '/404'
   },
@@ -33,21 +37,21 @@ const routes = {
 function addRoutesForModel(model) {
   routes[`admin${model}List`] = {
     path: `/a/${model}`,
-    action: async (data, params, query) => {
-      const listData = await Api.get(`/api/${model.toLowerCase()}`);
+    action: async (data, params, query, cookie) => {
+      const listData = await Api.get(`/api/${model.toLowerCase()}`, {}, cookie);
       data.set(['admin', 'list', model], listData.data);
     }
   };
   routes[`admin${model}Details`] = {
     path: `/a/${model}/details/:id`,
-    action: async (data, params, query) => {
-      const users = await Api.get(`/api/${model.toLowerCase()}/${params.id}`);
+    action: async (data, params, query, cookie) => {
+      const users = await Api.get(`/api/${model.toLowerCase()}/${params.id}`, {}, cookie);
       data.set(['admin', 'details', model, params.id], users.data);
     }
   };
   routes[`admin${model}DetailsNew`] = {
     path: `/a/${model}/details`,
-    action: async (data, params, query) => {
+    action: async (data, params, query, cookie) => {
       //const users = await Api.get(`/api/${model.toLowerCase()}/${params.id}`);
       //data.set(['admin', 'details', model, params.id], users.data);
     }

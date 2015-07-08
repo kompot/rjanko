@@ -9,6 +9,7 @@ import DetailsPage from './pages/DetailsPage';
 const pages = {
 
   adminLogin: () => <LoginPage />,
+  401: () => <LoginPage />,
   error404: () => <Error404 />,
   error500: () => <Error500 />
 

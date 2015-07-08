@@ -40,7 +40,7 @@ class Api {
     }
   }
 
-  _request(method, url, data = {}) {
+  _request(method, url, data = {}, cookie = null) {
     if (this.socketConn) {
       debug(`socket ${method} ${url}`);
       let requestId = this.requestCounter++;
@@ -58,19 +58,22 @@ class Api {
       return responsePromise;
     }
     debug(`http ${method} ${url}`);
-    return axios[method](`${settings.apiHost()}${url}`, data);
+    return axios({
+      method: method,
+      url: `${settings.apiHost()}${url}`,
+      data,
+      headers: {
+        Cookie: cookie
+      }
+    });
   }
 
-  post(url, payload = {}) {
-    return this._request('post', url, payload);
+  post(url, payload = {}, cookie = null) {
+    return this._request('post', url, payload, cookie);
   }
 
-  get(url, payload = {}) {
-    return this._request('get', url, payload);
-  }
-
-  news() {
-    return this.get(`/api/news?offset=0&limit=20`);
+  get(url, payload = {}, cookie = null) {
+    return this._request('get', url, payload, cookie);
   }
 
   login({username, password}) {

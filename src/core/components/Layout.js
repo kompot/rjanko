@@ -1,5 +1,7 @@
 import React from 'react';
+import {branch} from 'baobab-react/decorators';
 
+import {Component} from '../components/Component';
 import DataDisplay from '../components/DataDisplay';
 import UserInfo from '../admin/UserInfo';
 import ProjectInfo from '../admin/ProjectInfo';
@@ -8,9 +10,16 @@ import {PageRouter} from '../pages';
 
 import models from '../../models';
 
-export default class Layout extends React.Component {
+@branch({
+  cursors: {
+    activities: ['user', 'activities']
+  }
+})
+export default class Layout extends Component {
 
-  render() {
+  hasPermissionToRead = (m) => this.props.activities.indexOf('read ' + m.toLowerCase()) !== -1
+
+  renderLoaded({activities}) {
     return (
       <div className='Layout'>
         <div className='Layout-Header'>
@@ -19,7 +28,9 @@ export default class Layout extends React.Component {
         </div>
         <div className='Layout-Content'>
           <div className='Layout-Navigation'>
-            {Object.keys(models).map(m =>
+            {Object.keys(models)
+              .filter(this.hasPermissionToRead)
+              .map(m =>
               <div>
                 <Link name={`admin${m}List`} className='Layout-NavLink'>{m}</Link>
               </div>
@@ -27,7 +38,9 @@ export default class Layout extends React.Component {
             {require('cfg').applications.map(app =>
               <div className='Layout-NavigationGroup'>
                 <h3>{app.name}</h3>
-                {Object.keys(app.models).map(m =>
+                {Object.keys(app.models)
+                  .filter(this.hasPermissionToRead)
+                  .map(m =>
                   <div>
                     <Link name={`admin${m}List`}>{m}</Link>
                   </div>

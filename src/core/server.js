@@ -9,6 +9,7 @@ require('source-map-support').install();
 
 const debug = require('./logging/debug')(__filename);
 const expressApp = express();
+expressApp.locals.title = 'Rjanko Root Express Application';
 //const statsJsonPath = path.join(process.cwd(), 'build', '_stats.json');
 
 import renderApp from './renderApp';
@@ -32,10 +33,13 @@ if (process.env.NODE_ENV === 'production') {
 
 import {authApp, addAuthToExpressApp} from './auth.js';
 
+const mongoDbApi = require('../store/mongodb/api.js');
+
+addAuthToExpressApp(mongoDbApi);
 addAuthToExpressApp(expressApp);
 // TODO everything collapses in single namespace!
 expressApp.use('/api', authApp);
-expressApp.use('/api', require('../store/mongodb/api.js'));
+expressApp.use('/api', mongoDbApi);
 
 expressApp.use(async (req, res, next) => {
   const webpackAssets = await readWebpackBuildStats(req);

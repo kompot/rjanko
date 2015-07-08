@@ -55,7 +55,7 @@ export default async function(req, res, next, webpackAssets) {
   data.set('user', req.user);
 
   const actionPromise = actions[route.name]
-      ? actions[route.name](data, route.params, req.query)
+      ? actions[route.name](data, route.params, req.query, req.headers.cookie)
       : new Promise(resolve => resolve());
 
   actionPromise.then(() => renderHtml(res, data, webpackAssets)).catch((e) => {

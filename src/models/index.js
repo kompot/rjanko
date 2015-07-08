@@ -19,9 +19,17 @@ const Group = yup.object({
 // TODO dry Group!
 }).isModel('Group', true);
 
+const Role = yup.object({
+  _id: yup.string().required(),
+  name: yup.string().required('Role name is required'),
+  activities: yup.string().required('Activities are required')
+// TODO dry Role!
+}).isModel('Role', true);
+
 const User = yup.object({
   _id: yup.string().required(),
   username: yup.string().label('Username'),
+  password: yup.string().label('Password'),
   name: yup.object({
     first: yup
         .string().label('Имя')
@@ -32,7 +40,8 @@ const User = yup.object({
   }),
   dateOfBirth: yup.date().max(new Date(), 'You can not be born in the future!'),
   //colorIds: yup.array().of(yup.string()).required('Please select a color'),
-  groups: yup.array().of(Group)
+  groups: yup.array().of(Group),
+  roles: yup.array().of(Role)
 }).isModel('User');
 
-export default {User, Group};
+export default {User, Group, Role};

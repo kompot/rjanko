@@ -9,6 +9,11 @@ const debug = require('../../core/logging/debug')(__filename);
 require('./connection.js');
 
 const expressApp = express();
+expressApp.locals.title = 'Rjanko MongoDB API Express Application';
+
+var mustBe = require('mustbe');
+var mustBeConfig = require('./mustbeConfig');
+mustBe.configure(mustBeConfig);
 
 const rjankoModels = require('./index');
 let models = _.merge({}, rjankoModels);
@@ -25,27 +30,45 @@ require('cfg').applications.forEach(app =>
 )
 
 function addApiForModel(key) {
-  expressApp.get(`/${key.toLowerCase()}`, async (req, res, next) => {
+
+  const keyL = key.toLowerCase();
+
+  const readFn = async (req, res, next) => {
     const findQuery = {};
     if (req.query.search) {
       findQuery.name = new RegExp(req.query.search, 'i');
     }
     // TODO remove groups
     res.send(await models[key].find(findQuery).populate('groups').lean().execAsync());
-  });
-  expressApp.get(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
+  };
+
+  const readOneFn = async (req, res, next) => {
     // TODO remove groups
-    res.send(await models[key].find({'_id': req.params.id}).populate('groups').lean().execAsync());
-  });
-  expressApp.put(`/${key.toLowerCase()}`, async (req, res, next) => {
+    res.send(await models[key]
+      .find({'_id': req.params.id})
+      .populate('groups')
+      .populate('roles')
+      .lean().execAsync());
+  };
+
+  const createFn = async (req, res, next) => {
     res.send(await models[key].createAsync(req.body));
-  });
-  expressApp.post(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
+  };
+
+  const updateFn = async (req, res, next) => {
     res.send(await models[key].findByIdAndUpdateAsync(req.params.id, req.body));
-  });
-  expressApp.delete(`/${key.toLowerCase()}/:id`, async (req, res, next) => {
+  };
+
+  const deleteFn = async (req, res, next) => {
     res.send(await models[key].findByIdAndRemoveAsync(req.params.id));
-  });
+  };
+
+  expressApp.get(`/${keyL}`,        mustBe.routeHelpers().authorized(`read ${keyL}`,   readFn));
+  expressApp.get(`/${keyL}/:id`,    mustBe.routeHelpers().authorized(`read ${keyL}`,   readOneFn));
+  expressApp.put(`/${keyL}`,        mustBe.routeHelpers().authorized(`create ${keyL}`, createFn));
+  expressApp.post(`/${keyL}/:id`,   mustBe.routeHelpers().authorized(`update ${keyL}`, updateFn));
+  expressApp.delete(`/${keyL}/:id`, mustBe.routeHelpers().authorized(`delete ${keyL}`, deleteFn));
+
 }
 
 export default expressApp;
