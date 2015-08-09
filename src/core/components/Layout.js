@@ -17,7 +17,7 @@ import models from '../../models';
 })
 export default class Layout extends Component {
 
-  hasPermissionToRead = (m) => this.props.activities.indexOf('read ' + m.toLowerCase()) !== -1
+  hasPermissionToRead = (m) => this.props.activities && this.props.activities.indexOf('read ' + m.toLowerCase()) !== -1
 
   renderLoaded({activities}) {
     return (
@@ -30,18 +30,18 @@ export default class Layout extends Component {
           <div className='Layout-Navigation'>
             {Object.keys(models)
               .filter(this.hasPermissionToRead)
-              .map(m =>
-              <div>
+              .map((m, i) =>
+              <div key={i}>
                 <Link name={`admin${m}List`} className='Layout-NavLink'>{m}</Link>
               </div>
             )}
-            {require('cfg').applications.map(app =>
-              <div className='Layout-NavigationGroup'>
+            {require('cfg').applications.map((app, i) =>
+              <div className='Layout-NavigationGroup' key={i}>
                 <h3>{app.name}</h3>
                 {Object.keys(app.models)
                   .filter(this.hasPermissionToRead)
-                  .map(m =>
-                  <div>
+                  .map((m, j) =>
+                  <div key={j}>
                     <Link name={`admin${m}List`}>{m}</Link>
                   </div>
                 )}

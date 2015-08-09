@@ -28,7 +28,7 @@ module.exports = function (config) {
     ops.map(op => {
       Object.keys(models).map(m => {
         activities.can(op + ' ' + m.toLowerCase(), (identity, params, cb) => {
-          const result = identity.user.activities.indexOf(op + ' ' + m.toLowerCase()) !== -1;
+          const result = identity.user && identity.user.activities.indexOf(op + ' ' + m.toLowerCase()) !== -1;
           cb(null, result);
         });
       });

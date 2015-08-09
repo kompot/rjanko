@@ -33,7 +33,7 @@ require('cfg').applications.forEach(app =>
 })
 class PageRouter extends Component {
   renderLoaded({route}) {
-    return pages[route.name] && pages[route.name]() || <div>route not found, nothing to rende</div>;
+    return pages[route.name] && pages[route.name]() || <div>route not found, nothing to render</div>;
   }
 }
 
